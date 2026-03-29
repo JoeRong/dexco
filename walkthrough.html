@@ -197,41 +197,40 @@ p {
 /* bottom bar row */
 .ps-bar {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 4px;
   padding: 0 0 14px 18px;
+  flex-wrap: nowrap;
 }
 .ps-block {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex: 1;
-  padding: 10px 14px;
+  padding: 8px 12px;
   background: #fff;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   font-family: 'Space Grotesk', sans-serif;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #1a1918;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .ps-block .ps-block-num {
-  font-size: 12px;
+  font-size: 10px;
   color: #8a857e;
   font-weight: 600;
-  margin-left: auto;
-  padding-left: 10px;
+  margin-left: 6px;
 }
 .ps-review {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   font-family: 'Space Grotesk', sans-serif;
   white-space: nowrap;
-  align-self: flex-start;
+  flex-shrink: 0;
 }
 .ps-review.yellow { background: #f5f378; color: #1a1918; }
 .ps-review.orange { background: #f5aa78; color: #1a1918; }
