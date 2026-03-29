@@ -95,7 +95,8 @@ p {
 
 /* ── S0: Cover ── */
 .slide-cover {
-  text-align: center;
+  text-align: left;
+  align-items: flex-start;
 }
 .slide-cover h1 {
   font-size: 72px;
@@ -107,9 +108,19 @@ p {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
 }
+.slide-cover .team {
+  margin-top: 48px;
+  font-size: 16px;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+}
+.slide-cover .team span {
+  color: var(--text-2);
+  font-weight: 500;
+}
 .slide-cover .part-label {
   display: inline-block;
-  margin-top: 40px;
+  margin-top: 24px;
   padding: 8px 20px;
   border: 1px solid var(--surface-3);
   border-radius: 4px;
@@ -392,6 +403,7 @@ p {
     <h1 class="reveal">Design to Code</h1>
     <div class="tagline reveal reveal-delay-1">Rethinking the design–development handoff</div>
     <div class="part-label reveal reveal-delay-2">Part 1 — The Prototyping Pipeline</div>
+    <div class="team reveal reveal-delay-3"><span>Dazhou</span> · <span>Xingyu</span> · <span>Lemon</span> · <span>Nick</span> · <span>Siliang</span></div>
   </div>
 
   <!-- S1: Pipeline Overview -->
