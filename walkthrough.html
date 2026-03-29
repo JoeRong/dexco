@@ -197,10 +197,9 @@ p {
 /* bottom bar row */
 .ps-bar {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 4px;
   padding: 0 0 14px 18px;
-  flex-wrap: wrap;
 }
 .ps-block {
   display: flex;
@@ -232,7 +231,7 @@ p {
   font-weight: 600;
   font-family: 'Space Grotesk', sans-serif;
   white-space: nowrap;
-  flex-shrink: 0;
+  align-self: flex-start;
 }
 .ps-review.yellow { background: #f5f378; color: #1a1918; }
 .ps-review.orange { background: #f5aa78; color: #1a1918; }
