@@ -1045,7 +1045,7 @@ goTo(0);
 // ── Script Panel ──
 const scriptNotes = [
   `大家好，今天分享的主题是 Rethinking the Design to Product Handoff。我们团队一直在探索一个问题——设计到产品之间的 handoff，有没有更好的方式。`,
-  `这是我们现在的工作流，四个阶段：需求、设计、交付、上线。看起来很清晰对吧？<br><br><em style="color:var(--text-3);">→ 点击后：</em>但瓶颈在第三段——Delivery Stage。设计做完了，prototyping、implement、bug bash，这些全靠开发。设计师在这个阶段基本是等待。`,
+  `我们的工作流程分四步。第一步 Requirement，PM 发 Spec、做 Idea Validation。第二步 Design，做 Exploration 和 Coherence Review。第三步 Delivery，开发拿设计去做 demo，前端搭页面，后端接数据。这个阶段整个团队都在等——等 demo 出来，在真实环境下看跟设计有没有出入、有没有 edge case。做完 Bug Bash 没问题了，第四步推 Flight 上线。<br><br><em style="color:var(--text-3);">→ 点击后：</em>最近新闻团队前端大量减员，资源非常吃紧。之前这些来回——等 demo、改设计、再开发——还能磨，现在完全没时间磨了。Delivery 这个瓶颈变得尤为严重。`,
   `具体来说有三个问题。Idle——设计做完了，等开发实现，可能等好几天。Drift——设计意图在翻译过程中丢失，来回沟通没完没了。Loop——开发做完才发现边界情况，改设计、重新开发、再测试，无限循环。`,
   `所以我们想：如果设计师能自己部署呢？Figma Make 生成代码，直接部署上线，跳过 handoff。`,
   `第一个挑战是输出质量。Figma Make 生成的代码和设计稿不一定一样。解决方法是写 design-guidelines.md 和 global.css，给 AI 足够的约束，每天迭代优化。`,
