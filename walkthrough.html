@@ -54,7 +54,7 @@ html, body {
 h1 {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: 72px;
+  font-size: clamp(48px, 5vw, 80px);
   line-height: 1.15;
   color: var(--text-1);
   margin-bottom: 24px;
@@ -63,7 +63,7 @@ h1 {
 h2 {
   font-family: 'DM Serif Display', serif;
   font-weight: 400;
-  font-size: 52px;
+  font-size: clamp(36px, 3.5vw, 60px);
   line-height: 1.2;
   color: var(--text-1);
   margin-bottom: 16px;
@@ -72,7 +72,7 @@ h2 {
 h3 {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: clamp(16px, 1.2vw, 22px);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--accent);
@@ -80,7 +80,7 @@ h3 {
 }
 
 p {
-  font-size: 22px;
+  font-size: clamp(16px, 1.4vw, 24px);
   line-height: 1.6;
   color: var(--text-2);
   max-width: 720px;
@@ -156,8 +156,8 @@ p {
 /* ── S1: Pipeline ── */
 .pipeline-wrap {
   width: 100%;
-  max-width: 1400px;
-  margin: 40px auto 0;
+  max-width: 90vw;
+  margin: clamp(24px, 3vw, 48px) auto 0;
   display: grid;
   grid-template-columns: 1fr 2fr 1.8fr 0.6fr;
   row-gap: 0;
@@ -172,14 +172,14 @@ p {
 .ps-bar.hl { border-left-color: var(--surface-3); }
 .pipeline-wrap.highlight-delivery .ps-bar.hl { border-left-color: var(--accent); }
 .ps-num {
-  font-size: 16px;
+  font-size: clamp(12px, 1vw, 18px);
   font-weight: 700;
   color: var(--text-1);
   font-family: 'Space Grotesk', sans-serif;
   margin-bottom: 8px;
 }
 .ps-name {
-  font-size: 20px;
+  font-size: clamp(14px, 1.3vw, 22px);
   font-weight: 600;
   color: var(--text-1);
   font-family: 'Space Grotesk', sans-serif;
@@ -199,9 +199,9 @@ p {
 }
 .ps-bar:nth-child(5) { border-left: 2px solid var(--surface-3); }
 .ps-pill {
-  padding: 10px 18px;
+  padding: clamp(6px, 0.6vw, 12px) clamp(10px, 1vw, 20px);
   border-radius: 24px;
-  font-size: 13px;
+  font-size: clamp(10px, 0.85vw, 15px);
   font-weight: 600;
   font-family: 'Space Grotesk', sans-serif;
   white-space: nowrap;
@@ -319,13 +319,13 @@ p {
 
 .pain-grid {
   display: flex;
-  gap: 48px;
-  margin-top: 48px;
-  max-width: 1200px;
+  gap: clamp(24px, 3vw, 56px);
+  margin-top: clamp(32px, 3vw, 56px);
+  max-width: 90vw;
 }
 .pain-card {
   flex: 1;
-  padding: 44px 36px;
+  padding: clamp(28px, 2.5vw, 52px) clamp(20px, 2vw, 40px);
   background: var(--surface);
   border-top: 3px solid var(--surface-3);
   transition: border-color 0.3s;
@@ -334,19 +334,19 @@ p {
   border-top-color: var(--accent);
 }
 .pain-num {
-  font-size: 15px;
+  font-size: clamp(12px, 1vw, 16px);
   color: var(--text-3);
   letter-spacing: 0.1em;
   margin-bottom: 20px;
 }
 .pain-title {
   font-family: 'Instrument Serif', serif;
-  font-size: 40px;
+  font-size: clamp(28px, 2.5vw, 48px);
   color: var(--text-1);
   margin-bottom: 16px;
 }
 .pain-desc {
-  font-size: 18px;
+  font-size: clamp(14px, 1.2vw, 20px);
   line-height: 1.6;
   color: var(--text-2);
 }
@@ -358,7 +358,7 @@ p {
 }
 .shift-question {
   font-family: 'Instrument Serif', serif;
-  font-size: 48px;
+  font-size: clamp(32px, 3.2vw, 56px);
   font-style: italic;
   color: var(--text-2);
   margin-bottom: 48px;
@@ -369,11 +369,11 @@ p {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  font-size: 28px;
+  font-size: clamp(18px, 1.8vw, 32px);
   color: var(--text-1);
 }
 .shift-arrow {
-  font-size: 34px;
+  font-size: clamp(24px, 2.2vw, 40px);
   color: var(--accent);
 }
 
@@ -381,8 +381,8 @@ p {
 .challenge-layout {
   display: flex;
   align-items: center;
-  gap: 60px;
-  max-width: 1400px;
+  gap: clamp(32px, 4vw, 80px);
+  max-width: 90vw;
   width: 100%;
 }
 .challenge-left {
@@ -390,8 +390,8 @@ p {
   text-align: left;
 }
 .challenge-right {
-  flex: 0 0 640px;
-  height: 480px;
+  flex: 0 0 clamp(360px, 30vw, 720px);
+  height: clamp(280px, 25vw, 540px);
   background: var(--surface-2);
   border-radius: 12px;
   display: flex;
@@ -418,7 +418,7 @@ p {
   margin-bottom: 12px;
 }
 .challenge-detail {
-  font-size: 20px;
+  font-size: clamp(16px, 1.3vw, 22px);
   line-height: 1.7;
   color: var(--text-2);
   max-width: 640px;
