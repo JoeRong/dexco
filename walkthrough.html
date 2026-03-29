@@ -1295,67 +1295,67 @@ goTo(0);
 // ── Script Panel ──
 const scriptNotes = [
   /* 1 - Cover */
-  `大家好，今天分享的主题是 Rethinking the Design to Product Handoff。我们团队一直在探索——设计到产品之间的 handoff，有没有更好的方式。`,
+  `大家好，今天分享的主题是 Rethinking the Design to Product Handoff。我们团队一直在探索——设计到产品之间的 handoff，有没有更好的方式。先来看一下我们目前的工作流程。`,
 
-  /* 2 - Pipeline Overview (two clicks: show → highlight Delivery) */
-  `我们的工作流程分四步。第一步 Requirement，PM 写 Spec，我们做 Idea Validation 和 Spec Analyze。第二步 Design，做 Design Exploration 和 Review。第三步 Delivery，工程师拿设计去实现 demo，搭页面、接数据，整个团队都在等——等 demo 出来看跟设计有没有出入、有没有 edge case。Bug Bash 没问题了，第四步推 Flight 上线。<br><br><em style="color:var(--text-3);">→ 点击后：</em>最近我们团队前端大量减员，资源非常吃紧。之前这些来回——等 demo、改设计、再开发——还能磨，现在完全没时间磨了。Delivery 这个瓶颈变得尤为严重。`,
+  /* 2 - Pipeline Overview */
+  `我们的工作流程分四步。第一步 Requirement，PM 写 Spec，我们做 Idea Validation 和 Spec Analyze。第二步 Design，做 Design Exploration 和 Review。第三步 Delivery，工程师拿设计去实现 demo，搭页面、接数据，整个团队都在等——等 demo 出来看跟设计有没有出入、有没有 edge case。Bug Bash 没问题了，第四步推 Flight 上线。<br><br><em style="color:var(--text-3);">→ 点击后：</em>最近我们团队前端大量减员，资源非常吃紧。之前这些来回——等 demo、改设计、再开发——还能磨，现在完全没时间磨了。Delivery 这个瓶颈变得尤为严重。那具体严重在哪呢？`,
 
-  /* 3 - Three Pain Points (Idle / Drift / Loop) */
-  `具体来说三个问题。Idle——设计做完了，等开发实现，可能等好几天。Drift——设计意图在翻译过程中丢失，来回沟通没完没了。Loop——开发做完才发现边界情况，改设计、重新开发、再测试，无限循环。`,
+  /* 3 - Three Pain Points */
+  `具体来说三个问题。Idle——设计做完了，等开发实现，可能等好几天。Drift——设计意图在翻译过程中丢失，来回沟通没完没了。Loop——开发做完才发现边界情况，改设计、重新开发、再测试，无限循环。那怎么解决呢？`,
 
   /* 4 - The Shift */
-  `所以我们想：如果设计师能自己部署呢？用 Figma Make 生成代码，直接部署上线，跳过 handoff。`,
+  `所以我们想：如果设计师能自己部署呢？用 Figma Make 生成代码，直接部署上线，跳过 handoff。当然，说起来简单，做起来有很多挑战。`,
 
-  /* 5 - Challenge 1: Output Fidelity */
-  `第一个挑战是输出质量。Figma Make 生成的代码和设计稿不一定一致。我们的解决方法是写 design-guidelines.md 和 global.css，给 AI 足够的约束，每天迭代优化。`,
+  /* 5 - Challenge 1 */
+  `第一个挑战是输出质量。Figma Make 生成的代码和设计稿不一定一致。我们的解决方法是写 design-guidelines.md 和 global.css，给 AI 足够的约束，每天迭代优化。解决了"像不像"的问题之后，还有一个更深层的问题。`,
 
-  /* 6 - Challenge 2: Structural Integrity */
-  `第二个挑战：光是看起来对不够，代码结构要能被前后端工程师直接用。这不是 demo，是要上线的。我们靠 prompt engineering 和反复调试来解决。`,
+  /* 6 - Challenge 2 */
+  `第二个挑战：光是看起来对不够，代码结构要能被前后端工程师直接用。这不是 demo，是要上线的。我们靠 prompt engineering 和反复调试来解决。然后还有一个大家最常问的问题。`,
 
-  /* 7 - Challenge 3: Beyond a Pretty Page */
-  `第三个挑战，也是大家最常问的：这和 Figma 原型有什么区别？答案是数据分离——我们从生成的代码里抽出 data.ts，后端据此定义 data schema，对接真实 API。这不是原型，是有真实数据的产品。`,
+  /* 7 - Challenge 3 */
+  `第三个挑战：这和 Figma 原型有什么区别？答案是数据分离——我们从生成的代码里抽出 data.ts，后端据此定义 data schema，对接真实 API。这不是原型，是有真实数据的产品。三个挑战都解决之后，我们做出了什么？`,
 
   /* 8 - Result: App Deployment */
-  `最终我们做了一个部署平台。从 Figma 设计到 Figma Make 生成代码，到一键部署，到 live build。设计师全程不用写代码。`,
+  `我们做了一个部署平台。从 Figma 设计到 Figma Make 生成代码，到一键部署，到 live build。设计师全程不用写代码。这是第一个主题的成果。现在我们回到流程图，看看还有没有其他机会。`,
 
-  /* 9 - Pipeline Reprise 2: highlight Design */
+  /* 9 - Pipeline Reprise 2 */
   `回到流程图。我们刚才解决了 Delivery 的瓶颈。<br><br><em style="color:var(--text-3);">→ 点击后：</em>现在看 Design Stage——这里有一个新的机会。`,
 
   /* 10 - Design Exploration: Why */
-  `既然 Figma Make 靠 guideline.md 和 global.css 能稳定输出了，我们想：能不能反过来用它做设计探索？我们花了 10 轮对话，从设计文件里提炼出 Guideline 2.md。`,
+  `既然 Figma Make 靠 guideline.md 和 global.css 能稳定输出了，我们想：能不能反过来用它做设计探索？但在跑探索任务之前，我们得先做一件事。`,
 
   /* 11 - Design Framework → Guideline */
-  `在跑任何探索任务之前，我们先做了基础工作。把我们的 Design Framework——布局规则、间距规范、组件行为、视觉层级——整理成一份结构化的 Design Guideline，让 AI 能读懂、能遵守。这份 Guideline 就是约束层。`,
+  `我们把 Design Framework——布局规则、间距规范、组件行为、视觉层级——整理成一份结构化的 Design Guideline，让 AI 能读懂、能遵守。这份 Guideline 就是约束层。有了它之后，我们开始验证。`,
 
   /* 12 - Task 1: Reproduce */
-  `先验证基本能力：让 Figma Make 仅靠 guideline 还原一个 Magazine Layout。结果只用了 2 轮对话，几乎完美还原。`,
+  `先验证基本能力：让 Figma Make 仅靠 guideline 还原一个 Magazine Layout。结果只用了 2 轮对话，几乎完美还原。基本能力验证通过，接下来做真正的探索。`,
 
   /* 13 - Task 2: Explore */
-  `然后做真正的探索：基于设计规范生成全新的卡片样式。对比一下——之前没有 guideline 的时候，同样的任务需要 86 次对话、将近 10 个小时。有了 guideline 之后效率完全不同。`,
+  `基于设计规范生成全新的卡片样式。对比一下——之前没有 guideline 的时候，同样的任务需要 86 次对话、将近 10 个小时。有了 guideline 之后效率完全不同。这是第二个主题。我们再回到流程图看看。`,
 
-  /* 14 - Pipeline Reprise 3: highlight Requirement */
-  `再回到流程图。Delivery 和 Design 都有了新的方式。<br><br><em style="color:var(--text-3);">→ 点击后：</em>现在看 Requirement Stage——这里还有一个想法。`,
+  /* 14 - Pipeline Reprise 3 */
+  `Delivery 和 Design 都有了新的方式。<br><br><em style="color:var(--text-3);">→ 点击后：</em>现在看 Requirement Stage——这里还有一个想法。`,
 
   /* 15 - Spec to Design Intro */
-  `如果 AI 能读懂 PM 的 Spec，并且自动生成 Implementation Plan 呢？不是简单的总结，而是真正理解需求，问对的问题，产出设计师可以直接执行的结构化方案。`,
+  `如果 AI 能读懂 PM 的 Spec，并且自动生成 Implementation Plan 呢？不是简单的总结，而是真正理解需求，问对的问题，产出设计师可以直接执行的结构化方案。要做到这一点，我们做了两项前期投入。`,
 
-  /* 16 - Groundwork: Architecture + Thinking Process */
-  `做这件事之前有两项前期投入。第一，我们梳理了 SERP 的完整页面架构——Header、Top Wide、Primary、Algo、Rail，以及三种布局变体，给 AI 一套共同语言。第二，我们模拟了设计师收到 Spec 之后的思考过程——看什么、过滤什么、怎么把需求转化成设计决策。`,
+  /* 16 - Groundwork */
+  `第一，我们梳理了 SERP 的完整页面架构——Header、Top Wide、Primary、Algo、Rail，以及三种布局变体，给 AI 一套共同语言。第二，我们模拟了设计师收到 Spec 之后的思考过程——看什么、过滤什么、怎么把需求转化成设计决策。有了这些基础，我们构建了一个 Design Skill。`,
 
   /* 17 - Design Skill Workflow */
-  `这个 Skill 分五步。Spec Analysis——AI 读 Spec，定位涉及哪些 SERP 区域。Layout Variants——选择预设的布局模式。Structured Q&A——确认结构、guideline、品牌主题。Open Q&A——探索交互细节、边界情况、范围。最后确认 deliverables。`,
+  `这个 Skill 分五步。Spec Analysis——AI 读 Spec，定位涉及哪些 SERP 区域。Layout Variants——选择预设的布局模式。Structured Q&A——确认结构、guideline、品牌主题。Open Q&A——探索交互细节、边界情况、范围。最后确认 deliverables。那最终产出是什么呢？`,
 
   /* 18 - Implementation Planning */
-  `最终产出：一份从 Spec 分析和多轮 Q&A 中生成的结构化 Implementation Plan，设计师可以直接拿来执行。`,
+  `最终产出：一份从 Spec 分析和多轮 Q&A 中生成的结构化 Implementation Plan，设计师可以直接拿来执行。来看看实际效果。`,
 
   /* 19 - Result Showcase */
-  `这是最终产出的样子——从一份 PM Spec 到一份可执行的 Implementation Plan，完全通过 Design Skill 生成。`,
+  `这是最终产出的样子——从一份 PM Spec 到一份可执行的 Implementation Plan，完全通过 Design Skill 生成。三个主题都讲完了，现在让我们拉远看整体。`,
 
   /* 20 - Harness Engineering */
-  `现在我们拉远看整体。这三个主题其实在做同一件事：Harness Engineering。四个层次——Constraint Layer：Design Guideline，告诉 AI 怎么思考设计。Tool Layer：CSS、Schema，把视觉语言编码成 AI 能消费的格式。Workflow Layer：Skill，把设计师的思考过程外化成可重复的 AI 工作流。Review Layer：人类检查点，AI 提方案，人来审批。`,
+  `这三个主题其实在做同一件事：Harness Engineering。四个层次——Constraint Layer：Design Guideline，告诉 AI 怎么思考设计。Tool Layer：CSS、Schema，把视觉语言编码成 AI 能消费的格式。Workflow Layer：Skill，把设计师的思考过程外化成可重复的 AI 工作流。Review Layer：人类检查点，AI 提方案，人来审批。这意味着我们的角色在变。`,
 
   /* 21 - Role Shift */
-  `我们看到的转变：从 Executor 到 Harness Engineer。不再是一屏一屏画设计，而是设计 AI 遵循的规则。线性产出变成指数级产出。`,
+  `从 Executor 到 Harness Engineer。不再是一屏一屏画设计，而是设计 AI 遵循的规则。线性产出变成指数级产出。`,
 
   /* 22 - Closing */
   `问题不是"AI 能不能做设计"——而是"你怎么驾驭它"。谢谢大家。`
