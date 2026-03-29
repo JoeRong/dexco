@@ -159,13 +159,14 @@ p {
   max-width: 90vw;
   margin: clamp(24px, 3vw, 48px) auto 0;
   display: grid;
-  grid-template-columns: 1fr 2fr 1.5fr 0.5fr;
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  column-gap: clamp(24px, 2vw, 48px);
   row-gap: 0;
 }
 .ps-label {
   padding: 14px 18px 12px;
   border-left: 2px solid var(--surface-3);
-  width: fit-content;
 }
 .ps-label:nth-child(1) { border-left: 2px solid var(--surface-3); }
 .ps-label.hl { border-left-color: var(--surface-3); }
@@ -196,7 +197,6 @@ p {
   align-items: center;
   gap: 6px;
   padding: 0 8px 14px 18px;
-  width: fit-content;
   border-left: 2px solid var(--surface-3);
 }
 .ps-bar:nth-child(5) { border-left: 2px solid var(--surface-3); }
