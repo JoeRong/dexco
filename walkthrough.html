@@ -732,7 +732,7 @@ p {
   </div>
 
   <!-- S5: Challenge 2 -->
-  <div class="slide">
+  <div class="slide" id="slide-challenge2">
     <div class="challenge-layout">
       <div class="challenge-left">
         <div class="challenge-badge reveal">2</div>
@@ -741,7 +741,7 @@ p {
         <p class="challenge-detail reveal reveal-delay-2">
           Looking right is surface-level. The code needs to be <strong>structured, stable, and usable</strong> by frontend and backend engineers — not just a visual demo.
         </p>
-        <div class="challenge-stack reveal reveal-delay-3">
+        <div class="challenge-stack reveal reveal-delay-3" id="challenge2-tags" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s ease,transform 0.4s ease;">
           <span class="challenge-tag">prompt engineering</span>
           <span class="challenge-tag">code structure</span>
           <span class="challenge-tag">trial and error</span>
@@ -752,7 +752,7 @@ p {
   </div>
 
   <!-- S6: Challenge 3 -->
-  <div class="slide">
+  <div class="slide" id="slide-challenge3">
     <div class="challenge-layout">
       <div class="challenge-left">
         <div class="challenge-badge reveal">3</div>
@@ -764,7 +764,7 @@ p {
         <p class="challenge-detail reveal reveal-delay-3" style="margin-top:16px;">
           The answer: <strong>data separation</strong>. We extract a <code style="color:var(--accent);">data.ts</code> from the generated code. Backend engineers then derive a <strong>data schema</strong> from it.
         </p>
-        <div class="challenge-stack reveal reveal-delay-4">
+        <div class="challenge-stack reveal reveal-delay-4" id="challenge3-tags" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s ease,transform 0.4s ease;">
           <span class="challenge-tag">data.ts extraction</span>
           <span class="challenge-tag">data schema</span>
           <span class="challenge-tag">real API integration</span>
@@ -951,9 +951,13 @@ let current = 0;
 let pipelineStep = 0; // 0 = normal, 1 = highlight delivery
 let pipeline2Step = 0; // 0 = normal, 1 = highlight design
 let challenge1Step = 0; // 0 = tags hidden, 1 = tags shown
+let challenge2Step = 0;
+let challenge3Step = 0;
 const total = slides.length;
 const pipeline2Index = Array.from(slides).findIndex(s => s.id === 'slide-pipeline-2');
 const challenge1Index = Array.from(slides).findIndex(s => s.id === 'slide-challenge1');
+const challenge2Index = Array.from(slides).findIndex(s => s.id === 'slide-challenge2');
+const challenge3Index = Array.from(slides).findIndex(s => s.id === 'slide-challenge3');
 
 function goTo(idx) {
   if (idx < 0 || idx >= total) return;
@@ -961,14 +965,18 @@ function goTo(idx) {
   pipelineStep = 0;
   pipeline2Step = 0;
   challenge1Step = 0;
+  challenge2Step = 0;
+  challenge3Step = 0;
   document.querySelector('.pipeline-wrap')?.classList.remove('highlight-delivery');
   document.getElementById('pipeline-2')?.classList.remove('highlight-design');
   const bn = document.getElementById('bottleneck-text');
   if (bn) { bn.style.opacity = '0'; bn.style.display = 'none'; }
   const bn2 = document.getElementById('bottleneck-text-2');
   if (bn2) { bn2.style.opacity = '0'; bn2.style.display = 'none'; }
-  const c1tags = document.getElementById('challenge1-tags');
-  if (c1tags) { c1tags.style.opacity = '0'; c1tags.style.transform = 'translateY(12px)'; }
+  ['challenge1-tags','challenge2-tags','challenge3-tags'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.opacity = '0'; el.style.transform = 'translateY(12px)'; }
+  });
   deck.style.transform = `translateX(-${current * 100}vw)`;
   progress.style.width = `${((current + 1) / total) * 100}%`;
   counter.textContent = `${current + 1} / ${total}`;
@@ -978,8 +986,18 @@ function goTo(idx) {
   slide.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 }
 
+function showTags(id) {
+  const el = document.getElementById(id);
+  el.style.opacity = '1';
+  el.style.transform = 'translateY(0)';
+}
+function hideTags(id) {
+  const el = document.getElementById(id);
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(12px)';
+}
+
 function next() {
-  // Pipeline slide 1 (index 1): two-step
   if (current === 1 && pipelineStep === 0) {
     pipelineStep = 1;
     document.querySelector('.pipeline-wrap').classList.add('highlight-delivery');
@@ -988,15 +1006,9 @@ function next() {
     requestAnimationFrame(() => { bn.style.opacity = '1'; });
     return;
   }
-  // Challenge 1: two-step
-  if (current === challenge1Index && challenge1Step === 0) {
-    challenge1Step = 1;
-    const c1tags = document.getElementById('challenge1-tags');
-    c1tags.style.opacity = '1';
-    c1tags.style.transform = 'translateY(0)';
-    return;
-  }
-  // Pipeline slide 2: two-step
+  if (current === challenge1Index && challenge1Step === 0) { challenge1Step = 1; showTags('challenge1-tags'); return; }
+  if (current === challenge2Index && challenge2Step === 0) { challenge2Step = 1; showTags('challenge2-tags'); return; }
+  if (current === challenge3Index && challenge3Step === 0) { challenge3Step = 1; showTags('challenge3-tags'); return; }
   if (current === pipeline2Index && pipeline2Step === 0) {
     pipeline2Step = 1;
     document.getElementById('pipeline-2').classList.add('highlight-design');
@@ -1016,13 +1028,9 @@ function prev() {
     setTimeout(() => { bn.style.display = 'none'; }, 400);
     return;
   }
-  if (current === challenge1Index && challenge1Step === 1) {
-    challenge1Step = 0;
-    const c1tags = document.getElementById('challenge1-tags');
-    c1tags.style.opacity = '0';
-    c1tags.style.transform = 'translateY(12px)';
-    return;
-  }
+  if (current === challenge1Index && challenge1Step === 1) { challenge1Step = 0; hideTags('challenge1-tags'); return; }
+  if (current === challenge2Index && challenge2Step === 1) { challenge2Step = 0; hideTags('challenge2-tags'); return; }
+  if (current === challenge3Index && challenge3Step === 1) { challenge3Step = 0; hideTags('challenge3-tags'); return; }
   if (current === pipeline2Index && pipeline2Step === 1) {
     pipeline2Step = 0;
     document.getElementById('pipeline-2').classList.remove('highlight-design');
