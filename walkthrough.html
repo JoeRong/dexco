@@ -287,29 +287,39 @@ p {
   display: flex;
   align-items: center;
   gap: 60px;
-  max-width: 960px;
+  max-width: 1100px;
   width: 100%;
 }
 .challenge-left {
-  flex: 0 0 auto;
+  flex: 1;
+  text-align: left;
 }
 .challenge-right {
-  flex: 1;
+  flex: 0 0 480px;
+  height: 360px;
+  background: var(--surface-2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+  font-size: 14px;
+  font-family: 'Space Grotesk', sans-serif;
 }
 .challenge-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   border: 2px solid var(--accent);
   border-radius: 50%;
-  font-family: 'Instrument Serif', serif;
-  font-size: 28px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
   color: var(--accent);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
-.challenge-right h2 {
+.challenge-left h2 {
   margin-bottom: 12px;
 }
 .challenge-detail {
@@ -532,8 +542,6 @@ p {
     <div class="challenge-layout">
       <div class="challenge-left">
         <div class="challenge-badge reveal">1</div>
-      </div>
-      <div class="challenge-right">
         <h3 class="reveal">Challenge</h3>
         <h2 class="reveal reveal-delay-1">Output Fidelity</h2>
         <p class="challenge-detail reveal reveal-delay-2">
@@ -544,10 +552,8 @@ p {
           <span class="challenge-tag">global.css</span>
           <span class="challenge-tag">daily iteration</span>
         </div>
-        <p class="challenge-detail reveal reveal-delay-4" style="margin-top:16px;color:var(--text-3);font-size:16px;">
-          We tested different guideline configurations every day to find what makes AI output stable.
-        </p>
       </div>
+      <div class="challenge-right reveal reveal-delay-2">Screenshot placeholder</div>
     </div>
   </div>
 
@@ -556,22 +562,18 @@ p {
     <div class="challenge-layout">
       <div class="challenge-left">
         <div class="challenge-badge reveal">2</div>
-      </div>
-      <div class="challenge-right">
         <h3 class="reveal">Challenge</h3>
         <h2 class="reveal reveal-delay-1">Structural Integrity</h2>
         <p class="challenge-detail reveal reveal-delay-2">
           Looking right is surface-level. The code needs to be <strong>structured, stable, and usable</strong> by frontend and backend engineers — not just a visual demo.
         </p>
-        <p class="challenge-detail reveal reveal-delay-3" style="margin-top:16px;">
-          As designers who don't write code, our only lever was the prompt. We experimented relentlessly to make the output architecturally sound.
-        </p>
-        <div class="challenge-stack reveal reveal-delay-4">
+        <div class="challenge-stack reveal reveal-delay-3">
           <span class="challenge-tag">prompt engineering</span>
           <span class="challenge-tag">code structure</span>
           <span class="challenge-tag">trial and error</span>
         </div>
       </div>
+      <div class="challenge-right reveal reveal-delay-2">Screenshot placeholder</div>
     </div>
   </div>
 
@@ -580,15 +582,13 @@ p {
     <div class="challenge-layout">
       <div class="challenge-left">
         <div class="challenge-badge reveal">3</div>
-      </div>
-      <div class="challenge-right">
         <h3 class="reveal">Challenge</h3>
         <h2 class="reveal reveal-delay-1">Beyond a Pretty Page</h2>
         <p class="challenge-detail reveal reveal-delay-2">
           Everyone asked: <em style="color:var(--text-1);">"How is this different from a Figma prototype?"</em>
         </p>
         <p class="challenge-detail reveal reveal-delay-3" style="margin-top:16px;">
-          The answer: <strong>data separation</strong>. We extract a <code style="color:var(--accent);">data.ts</code> from the generated code. Backend engineers then derive a <strong>data schema</strong> from it. The result is a real frontend that runs on real data — not a static mock.
+          The answer: <strong>data separation</strong>. We extract a <code style="color:var(--accent);">data.ts</code> from the generated code. Backend engineers then derive a <strong>data schema</strong> from it.
         </p>
         <div class="challenge-stack reveal reveal-delay-4">
           <span class="challenge-tag">data.ts extraction</span>
@@ -596,30 +596,28 @@ p {
           <span class="challenge-tag">real API integration</span>
         </div>
       </div>
+      <div class="challenge-right reveal reveal-delay-2">Screenshot placeholder</div>
     </div>
   </div>
 
   <!-- S7: Result -->
   <div class="slide">
-    <div class="result-container">
-      <h3 class="reveal">The Result</h3>
-      <h2 class="reveal reveal-delay-1" style="font-size:48px;">Dexco</h2>
-      <p class="reveal reveal-delay-2" style="text-align:center;">A deployment platform built for designers. From Figma Make to a live, data-connected build — without writing code.</p>
-      <div class="result-flow reveal reveal-delay-3">
-        <span class="result-node">Figma Design</span>
-        <span class="result-arrow">&rarr;</span>
-        <span class="result-node">Figma Make</span>
-        <span class="result-arrow">&rarr;</span>
-        <span class="result-node accent">Dexco Deploy</span>
-        <span class="result-arrow">&rarr;</span>
-        <span class="result-node">Live Build</span>
+    <div class="challenge-layout">
+      <div class="challenge-left">
+        <h3 class="reveal">The Result</h3>
+        <h2 class="reveal reveal-delay-1" style="font-size:48px;">Dexco</h2>
+        <p class="challenge-detail reveal reveal-delay-2">A deployment platform built for designers. From Figma Make to a live, data-connected build — without writing code.</p>
+        <div class="result-flow reveal reveal-delay-3">
+          <span class="result-node">Figma Design</span>
+          <span class="result-arrow">&rarr;</span>
+          <span class="result-node">Figma Make</span>
+          <span class="result-arrow">&rarr;</span>
+          <span class="result-node accent">Dexco Deploy</span>
+          <span class="result-arrow">&rarr;</span>
+          <span class="result-node">Live Build</span>
+        </div>
       </div>
-      <div class="result-tabs reveal reveal-delay-4">
-        <div class="result-tab active">Apps</div>
-        <div class="result-tab">Deploy</div>
-        <div class="result-tab">Schema</div>
-        <div class="result-tab">Status</div>
-      </div>
+      <div class="challenge-right reveal reveal-delay-2">Screenshot placeholder</div>
     </div>
   </div>
 
