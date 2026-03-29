@@ -154,96 +154,85 @@ p {
 }
 
 /* ── S1: Pipeline ── */
-.pipeline-top {
-  display: flex;
+.pipeline-wrap {
   width: 100%;
   max-width: 960px;
   margin-top: 32px;
+}
+/* Row 1: stage labels */
+.pipeline-labels {
+  display: flex;
+  width: 100%;
   gap: 0;
+  margin-bottom: 12px;
 }
-.pipeline-col {
-  flex: 1;
-  padding: 20px 20px 16px;
-  border-left: 3px solid var(--surface-3);
+.pl-item {
+  padding: 14px 18px;
+  border-left: 2px solid var(--surface-3);
 }
-.pipeline-col:first-child { border-left: 3px solid var(--text-3); }
-.pipeline-col.highlight { border-left-color: var(--accent); }
-.pipeline-review-inline {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: 0.04em;
-}
-.pipeline-num {
-  font-size: 13px;
-  color: var(--text-3);
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-}
-.pipeline-name {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  font-size: 18px;
+.pl-item:first-child { border-left: 2px solid var(--text-2); }
+.pl-item.hl { border-left-color: var(--accent); }
+.pl-num {
+  font-size: 14px;
+  font-weight: 700;
   color: var(--text-1);
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 4px;
+}
+.pl-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-1);
+  font-family: 'Space Grotesk', sans-serif;
   margin-bottom: 2px;
 }
-.pipeline-sub {
+.pl-sub {
   font-size: 13px;
   color: var(--text-3);
   font-family: 'Space Grotesk', sans-serif;
 }
+/* Row 2: timeline bar */
 .pipeline-bar {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
-  max-width: 960px;
-  margin-top: 16px;
-  background: var(--surface);
+  gap: 2px;
   border-radius: 6px;
-  padding: 10px 12px;
-  gap: 6px;
-  flex-wrap: nowrap;
+  overflow: hidden;
 }
-.bar-stage {
+.pb-block {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 600;
+  justify-content: space-between;
+  padding: 12px 14px;
+  font-size: 11px;
+  font-weight: 700;
   font-family: 'Space Grotesk', sans-serif;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-1);
   white-space: nowrap;
+  background: #fff;
+  color: #1a1918;
 }
-.bar-num {
+.pb-block .pb-num {
   font-size: 11px;
-  color: var(--text-3);
-  margin-left: 4px;
+  color: #8a857e;
+  font-weight: 600;
+  margin-left: auto;
+  padding-left: 12px;
 }
-.bar-review {
-  padding: 5px 12px;
-  border-radius: 4px;
+.pb-review {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
   font-size: 12px;
   font-weight: 600;
   font-family: 'Space Grotesk', sans-serif;
   white-space: nowrap;
 }
-.bar-review.yellow { background: #f5f378; color: #1a1918; }
-.bar-review.orange { background: #f5aa78; color: #1a1918; }
-.bar-review.green { background: #78f5a3; color: #1a1918; }
-.bar-sep {
-  width: 1px;
-  height: 24px;
-  background: var(--surface-3);
-  flex-shrink: 0;
-}
+.pb-review.yellow { background: #f5f378; color: #1a1918; }
+.pb-review.orange { background: #f5aa78; color: #1a1918; }
+.pb-review.green { background: #78f5a3; color: #1a1918; }
 
 /* ── S2: Pain Points ── */
 .pain-grid {
@@ -474,39 +463,41 @@ p {
   <div class="slide">
     <h3 class="reveal">Current Workflow</h3>
     <h2 class="reveal reveal-delay-1">Four stages, one bottleneck</h2>
-    <div class="pipeline-top reveal reveal-delay-2">
-      <div class="pipeline-col">
-        <div class="pipeline-num">01</div>
-        <div class="pipeline-name">Requirement</div>
-        <div class="pipeline-sub">Idea Validation</div>
+    <div class="pipeline-wrap">
+      <div class="pipeline-labels reveal reveal-delay-2">
+        <div class="pl-item" style="flex:1.2;">
+          <div class="pl-num">01</div>
+          <div class="pl-name">Requirement Stage</div>
+          <div class="pl-sub">Idea Validation</div>
+        </div>
+        <div class="pl-item" style="flex:2.4;">
+          <div class="pl-num">02</div>
+          <div class="pl-name">Design Stage</div>
+          <div class="pl-sub">Product Design</div>
+        </div>
+        <div class="pl-item hl" style="flex:2.4;">
+          <div class="pl-num">03</div>
+          <div class="pl-name">Delivery Stage</div>
+          <div class="pl-sub">Product Implement</div>
+        </div>
+        <div class="pl-item" style="flex:0.8;">
+          <div class="pl-num">04</div>
+          <div class="pl-name">Flight</div>
+          <div class="pl-sub">Product Implement</div>
+        </div>
       </div>
-      <div class="pipeline-col" style="border-left-color:var(--yellow);">
-        <div class="pipeline-review-inline" style="background:#f5f378;color:#1a1918;">Spec Review</div>
-      </div>
-      <div class="pipeline-col highlight">
-        <div class="pipeline-num">02</div>
-        <div class="pipeline-name">Design</div>
-        <div class="pipeline-sub">UI Design</div>
-      </div>
-      <div class="pipeline-col" style="border-left-color:var(--orange);">
-        <div class="pipeline-review-inline" style="background:#f5aa78;color:#1a1918;">UX Review</div>
-        <div class="pipeline-review-inline" style="background:#f5aa78;color:#1a1918;margin-top:6px;">Coherence Review</div>
-      </div>
-      <div class="pipeline-col highlight">
-        <div class="pipeline-num">03</div>
-        <div class="pipeline-name">Delivery</div>
-        <div class="pipeline-sub">Prototyping / Implement</div>
-      </div>
-      <div class="pipeline-col" style="border-left-color:var(--green);">
-        <div class="pipeline-review-inline" style="background:#78f5a3;color:#1a1918;">Bug Bash</div>
-      </div>
-      <div class="pipeline-col">
-        <div class="pipeline-num">04</div>
-        <div class="pipeline-name">Flight</div>
-        <div class="pipeline-sub">Ship</div>
+      <div class="pipeline-bar reveal reveal-delay-3">
+        <div class="pb-block" style="flex:1.2;">IDEA VALIDATION<span class="pb-num">01</span></div>
+        <div class="pb-review yellow">Spec Review</div>
+        <div class="pb-block" style="flex:1.6;">UI DESIGN<span class="pb-num">03</span></div>
+        <div class="pb-review orange">Internal UX Review</div>
+        <div class="pb-review orange">Coherence Review</div>
+        <div class="pb-block" style="flex:1.6;">PROTOTYPING/IMPLEMENT<span class="pb-num">04</span></div>
+        <div class="pb-review green">Bug Bash</div>
+        <div class="pb-block" style="flex:0.6;">SHIP<span class="pb-num">02</span></div>
       </div>
     </div>
-    <p class="reveal reveal-delay-3" style="margin-top:20px;text-align:center;color:var(--text-3);font-size:15px;">The orange zone is where time disappears.</p>
+    <p class="reveal reveal-delay-4" style="margin-top:20px;text-align:center;color:var(--text-3);font-size:15px;">The orange zone is where time disappears.</p>
   </div>
 
   <!-- S2: Pain Points -->
