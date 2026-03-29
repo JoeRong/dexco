@@ -555,7 +555,34 @@ p {
   color: var(--text-3);
   letter-spacing: 0.08em;
   z-index: 100;
+  cursor: pointer;
+  user-select: none;
 }
+.counter:hover { color: var(--text-1); }
+.slide-picker {
+  position: fixed;
+  bottom: 48px;
+  right: 32px;
+  background: var(--surface);
+  border: 1px solid var(--surface-3);
+  border-radius: 8px;
+  padding: 8px 0;
+  z-index: 200;
+  max-height: 60vh;
+  overflow-y: auto;
+  display: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.slide-picker.open { display: block; }
+.slide-picker-item {
+  padding: 6px 20px;
+  font-size: 13px;
+  color: var(--text-2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.slide-picker-item:hover { background: var(--surface-2); color: var(--text-1); }
+.slide-picker-item.active { color: var(--accent); font-weight: 600; }
 
 /* ── Nav Hint ── */
 .nav-hint {
@@ -1170,6 +1197,7 @@ p {
 <!-- Progress -->
 <div class="progress" id="progress"></div>
 <div class="counter" id="counter"></div>
+<div class="slide-picker" id="slidePicker"></div>
 <div class="nav-hint">Arrow keys / swipe to navigate</div>
 
 <script>
@@ -1185,6 +1213,36 @@ let challenge1Step = 0; // 0 = tags hidden, 1 = tags shown
 let challenge2Step = 0;
 let challenge3Step = 0;
 const total = slides.length;
+
+// Slide picker
+const slidePicker = document.getElementById('slidePicker');
+const slideTitles = [
+  'Cover','Pipeline','Three Fractures','The Shift',
+  'Challenge 1','Challenge 2','Challenge 3','Result: App Deployment',
+  'Pipeline Reprise 2','Design Exploration','Design Guideline',
+  'Task 1: Reproduce','Task 2: Explore','Pipeline Reprise 3',
+  'Spec to Design','Groundwork','Skill Workflow',
+  'Implementation Planning','Result Showcase',
+  'Workflow Evolution','Harness Engineering','Role Shift','Closing'
+];
+function buildPicker(){
+  slidePicker.innerHTML='';
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');
+    d.className='slide-picker-item'+(i===current?' active':'');
+    d.textContent=`${i+1}. ${slideTitles[i]||'Slide '+(i+1)}`;
+    d.onclick=()=>{goTo(i);slidePicker.classList.remove('open');};
+    slidePicker.appendChild(d);
+  }
+}
+counter.addEventListener('click',e=>{
+  e.stopPropagation();
+  buildPicker();
+  slidePicker.classList.toggle('open');
+});
+document.addEventListener('click',()=>slidePicker.classList.remove('open'));
+slidePicker.addEventListener('click',e=>e.stopPropagation());
+
 const pipeline2Index = Array.from(slides).findIndex(s => s.id === 'slide-pipeline-2');
 const pipeline3Index = Array.from(slides).findIndex(s => s.id === 'slide-pipeline-3');
 const challenge1Index = Array.from(slides).findIndex(s => s.id === 'slide-challenge1');
