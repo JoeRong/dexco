@@ -4,16 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Figma App Depot</title>
-<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@font-face {
-  font-family: 'Cabinet Grotesk';
-  src: url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800&display=swap');
-}
-
 :root {
   --sans: 'Outfit', system-ui, sans-serif;
   --serif: 'Instrument Serif', Georgia, serif;
+  --mono: 'SF Mono', 'Fira Code', monospace;
 
   --bg: #0e0e11;
   --surface: #161619;
@@ -28,9 +24,13 @@
   --text-3: #7a756e;
   --text-4: #56524c;
 
-  --accent: #e8e4dc;
-  --accent-dim: rgba(255,255,255,0.04);
-  --accent-mid: rgba(255,255,255,0.08);
+  --orange: #f28c50;
+  --orange-hover: #e57d42;
+  --orange-dim: rgba(242,140,80,0.08);
+  --red: #e05c4a;
+  --red-dim: rgba(224,92,74,0.06);
+  --green: #3daa6d;
+  --green-dim: rgba(61,170,109,0.08);
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,7 +44,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Grain */
 body::after {
   content: '';
   position: fixed; inset: 0;
@@ -59,12 +58,12 @@ body::after {
   padding: 48px 32px 80px;
 }
 
-/* ── Header: asymmetric, left-heavy ── */
+/* ── Header ── */
 .masthead {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 72px;
+  margin-bottom: 44px;
 }
 
 .masthead-left h1 {
@@ -74,17 +73,17 @@ body::after {
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: var(--text-1);
 }
 
-.masthead-left h1 span {
+.masthead-left h1 .code-mark {
   display: inline-block;
-  width: 10px; height: 10px;
-  background: var(--text-2);
-  border-radius: 50%;
-  margin-left: 4px;
-  vertical-align: super;
-  font-size: 0;
+  margin-left: 8px;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--orange);
+  letter-spacing: -0.02em;
 }
 
 .masthead-left .tagline {
@@ -112,23 +111,22 @@ body::after {
 .user-dot {
   width: 22px; height: 22px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--orange-dim);
+  border: 1px solid rgba(242,140,80,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.6rem;
   font-weight: 600;
-  color: var(--text-2);
+  color: var(--orange);
 }
 
-/* ── Tabs: underline, spaced out ── */
+/* ── Tabs ── */
 .tabs {
   display: flex;
   gap: 32px;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 0;
 }
 
 .tab {
@@ -144,6 +142,14 @@ body::after {
   position: relative;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab-icon {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
 }
 
 .tab::after {
@@ -162,14 +168,25 @@ body::after {
   font-weight: 500;
 }
 
+.tab.active .tab-icon { color: var(--orange); }
+
 .tab.active::after {
-  background: var(--accent);
+  background: var(--text-1);
   height: 2px;
+}
+
+/* ── Tab content ── */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── Deploy form wrap ── */
+.deploy-form-wrap {
+  max-width: 100%;
 }
 
 /* ── Form ── */
 .form-group {
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 .form-label {
@@ -181,7 +198,6 @@ body::after {
   margin-bottom: 12px;
 }
 
-/* Toggle pills — subtle, ghost style */
 .toggle-row {
   display: flex;
   gap: 8px;
@@ -208,14 +224,11 @@ body::after {
 
 .toggle-pill.active {
   color: var(--text-1);
-  border-color: rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
 }
 
-/* Select */
-.select-wrap {
-  position: relative;
-}
+.select-wrap { position: relative; }
 
 .select-wrap select {
   width: 100%;
@@ -233,12 +246,8 @@ body::after {
 }
 
 .select-wrap select:hover { border-color: var(--border-hover); }
-.select-wrap select:focus { outline: none; border-color: rgba(255,255,255,0.2); box-shadow: 0 0 0 3px rgba(255,255,255,0.03); }
-
-.select-wrap select option {
-  background: var(--surface-2);
-  color: var(--text-1);
-}
+.select-wrap select:focus { outline: none; border-color: rgba(255,255,255,0.12); box-shadow: 0 0 0 3px rgba(255,255,255,0.02); }
+.select-wrap select option { background: var(--surface-2); color: var(--text-1); }
 
 .select-wrap::after {
   content: '';
@@ -252,7 +261,6 @@ body::after {
   pointer-events: none;
 }
 
-/* Text input */
 .text-input {
   width: 100%;
   padding: 12px 14px;
@@ -268,15 +276,20 @@ body::after {
 
 .text-input::placeholder { color: var(--text-4); }
 .text-input:hover { border-color: var(--border-hover); }
-.text-input:focus { outline: none; border-color: rgba(255,255,255,0.2); box-shadow: 0 0 0 3px rgba(255,255,255,0.03); }
+.text-input:focus { outline: none; border-color: rgba(255,255,255,0.12); box-shadow: 0 0 0 3px rgba(255,255,255,0.02); }
 
-/* Drop zone — big, bold, different */
+.form-hint {
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: var(--text-3);
+}
+
 .drop-zone {
   margin-top: 8px;
-  padding: 72px 32px;
-  border: 1.5px dashed rgba(255,255,255,0.15);
+  padding: 52px 32px;
+  border: 1.5px dashed rgba(255,255,255,0.08);
   border-radius: 16px;
-  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  background: var(--surface-2);
   text-align: center;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -287,7 +300,7 @@ body::after {
 .drop-zone::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 300px 200px at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+  background: radial-gradient(ellipse 300px 200px at center, rgba(255,255,255,0.02) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.4s;
   pointer-events: none;
@@ -299,15 +312,14 @@ body::after {
 }
 
 .drop-zone:hover::before { opacity: 1; }
-
 .drop-zone:hover .drop-arrow { transform: translateY(-3px); }
 
 .drop-arrow {
   width: 48px; height: 48px;
   margin: 0 auto 18px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -344,44 +356,421 @@ body::after {
 
 .drop-hint a:hover { opacity: 1; text-decoration: underline; }
 
-/* Submit */
+.drop-formats {
+  margin-top: 8px;
+  font-size: 0.65rem;
+  color: var(--text-4);
+  letter-spacing: 0.04em;
+}
+
 .submit-btn {
   width: 100%;
   padding: 15px 24px;
-  margin-top: 32px;
-  background: var(--surface-2);
-  color: var(--text-2);
+  margin-top: 16px;
+  background: var(--orange);
+  color: #fff;
   font-family: var(--sans);
   font-size: 0.82rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.02em;
-  border: 1px solid var(--border-hover);
+  border: none;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: none;
-  position: relative;
 }
 
 .submit-btn:hover {
   transform: translateY(-1px);
-  background: var(--surface-3);
-  color: var(--text-1);
-  border-color: rgba(255,255,255,0.15);
+  background: var(--orange-hover);
 }
 
 .submit-btn:active {
   transform: translateY(0) scale(0.995);
 }
 
+/* ── Schema ── */
+.schema-modes {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.schema-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.schema-tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-3);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.schema-tool-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-2);
+}
+
+.schema-editor {
+  width: 100%;
+  min-height: 280px;
+  padding: 14px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.schema-editor::placeholder { color: var(--text-4); }
+.schema-editor:hover { border-color: var(--border-hover); }
+.schema-editor:focus { outline: none; border-color: rgba(255,255,255,0.12); box-shadow: 0 0 0 3px rgba(255,255,255,0.02); }
+
+/* ── Status ── */
+.status-section-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--surface);
+  transition: background 0.15s;
+}
+
+.task-item:hover { background: var(--surface-2); }
+
+.task-icon {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-3);
+}
+
+.task-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.3;
+}
+
+.task-hash {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-4);
+  margin-top: 2px;
+}
+
+.task-detail {
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--text-3);
+  margin-top: 1px;
+}
+
+.task-badge {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+}
+
+.task-badge.running {
+  background: var(--orange-dim);
+  color: var(--orange);
+}
+
+.task-badge.completed {
+  background: var(--green-dim);
+  color: var(--green);
+}
+
+.task-badge.failed {
+  background: var(--red-dim);
+  color: var(--red);
+}
+
+/* ── Apps grid ── */
+.apps-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.apps-count {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+.apps-search {
+  padding: 7px 12px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+
+.apps-search::placeholder { color: var(--text-4); }
+.apps-search:focus { outline: none; border-color: var(--border-hover); }
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ── App card ── */
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.app-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 4px 20px rgba(255,255,255,0.04);
+}
+
+.app-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.app-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-1);
+  word-break: break-all;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-name-icon {
+  flex-shrink: 0;
+  color: var(--text-3);
+}
+
+.app-name-badge {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.app-name-badge svg {
+  width: 12px; height: 12px;
+}
+
+.app-name-badge.live {
+  background: var(--green-dim);
+  color: var(--green);
+}
+
+.app-name-badge.warning {
+  background: var(--orange-dim);
+  color: var(--orange);
+}
+
+.app-name-badge.expiring {
+  background: var(--red-dim);
+  color: var(--red);
+}
+
+.app-status {
+  flex-shrink: 0;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+.app-status.live { background: var(--green); }
+.app-status.expiring { background: var(--orange); }
+
+.app-hash {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-4);
+  letter-spacing: 0.02em;
+}
+
+.app-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.app-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  color: var(--text-3);
+}
+
+.app-meta-row svg {
+  width: 12px; height: 12px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.app-expires {
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.app-expires.safe { color: var(--green); }
+.app-expires.warn { color: var(--orange); }
+.app-expires.danger { color: var(--red); }
+
+.app-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-note input {
+  flex: 1;
+  padding: 5px 8px;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  color: var(--text-1);
+  background: var(--surface-2);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: border-color 0.2s;
+}
+
+.app-note input::placeholder { color: var(--text-4); }
+.app-note input:focus { outline: none; border-color: var(--border-hover); }
+
+.app-note-save {
+  padding: 4px 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-3);
+  font-size: 0.65rem;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+}
+
+.app-note-save:hover { border-color: var(--border-hover); color: var(--text-2); }
+
+.app-note-save svg {
+  width: 12px; height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.app-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.btn-sm {
+  padding: 5px 12px;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-renew {
+  background: transparent;
+  color: var(--text-3);
+  border: 1px solid var(--border);
+}
+
+.btn-renew:hover { border-color: var(--border-hover); color: var(--text-2); }
+
+.btn-delete {
+  background: transparent;
+  color: var(--text-4);
+  border: 1px solid var(--border);
+}
+
+.btn-delete:hover { border-color: var(--border-hover); color: var(--red); }
+
 /* ── Responsive ── */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .apps-grid { grid-template-columns: repeat(2, 1fr); }
   .shell { padding: 28px 18px 48px; }
-  .masthead-left h1 { font-size: 1.6rem; }
+  .masthead-left h1 { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .apps-grid { grid-template-columns: 1fr; }
   .tabs { gap: 20px; }
 }
 
-/* ── Entry animations ── */
+/* ── Animations ── */
 @keyframes rise {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -389,11 +778,18 @@ body::after {
 
 .masthead { animation: rise 0.6s cubic-bezier(0.16,1,0.3,1) both; }
 .tabs { animation: rise 0.6s 0.06s cubic-bezier(0.16,1,0.3,1) both; }
-.form-group:nth-child(1) { animation: rise 0.6s 0.12s cubic-bezier(0.16,1,0.3,1) both; }
-.form-group:nth-child(2) { animation: rise 0.6s 0.18s cubic-bezier(0.16,1,0.3,1) both; }
-.form-group:nth-child(3) { animation: rise 0.6s 0.24s cubic-bezier(0.16,1,0.3,1) both; }
-.form-group:nth-child(4) { animation: rise 0.6s 0.30s cubic-bezier(0.16,1,0.3,1) both; }
-.submit-btn { animation: rise 0.6s 0.36s cubic-bezier(0.16,1,0.3,1) both; }
+.apps-header { animation: rise 0.6s 0.12s cubic-bezier(0.16,1,0.3,1) both; }
+
+.app-card {
+  animation: rise 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.app-card:nth-child(1) { animation-delay: 0.14s; }
+.app-card:nth-child(2) { animation-delay: 0.18s; }
+.app-card:nth-child(3) { animation-delay: 0.22s; }
+.app-card:nth-child(4) { animation-delay: 0.26s; }
+.app-card:nth-child(5) { animation-delay: 0.30s; }
+.app-card:nth-child(6) { animation-delay: 0.34s; }
 </style>
 </head>
 <body>
@@ -402,7 +798,7 @@ body::after {
 
   <header class="masthead">
     <div class="masthead-left">
-      <h1>App Depot<span></span></h1>
+      <h1>App Depot <span class="code-mark">{/}</span></h1>
       <div class="tagline">Deploy Figma prototypes</div>
     </div>
     <div class="user-pill">
@@ -412,64 +808,363 @@ body::after {
   </header>
 
   <nav class="tabs">
-    <button class="tab">Apps</button>
-    <button class="tab active">Deploy</button>
-    <button class="tab">Schema</button>
-    <button class="tab">Status</button>
+    <button class="tab active" onclick="switchTab(this, 'apps')">
+      <svg class="tab-icon" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Apps
+    </button>
+    <button class="tab" onclick="switchTab(this, 'deploy')">
+      <svg class="tab-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Deploy
+    </button>
+    <button class="tab" onclick="switchTab(this, 'schema')">
+      <svg class="tab-icon" viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="2" width="5" height="5" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="2" y="9" width="5" height="5" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="5" height="5" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Schema
+    </button>
+    <button class="tab" onclick="switchTab(this, 'status')">
+      <svg class="tab-icon" viewBox="0 0 16 16"><rect x="3" y="2" width="2" height="12" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="7" y="5" width="2" height="9" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="11" y="7" width="2" height="7" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Status
+    </button>
   </nav>
 
-  <form id="deployForm" onsubmit="return false">
+  <!-- Apps Tab -->
+  <div class="tab-content active" id="tab-apps">
+    <div class="apps-header">
+      <span class="apps-count">6 deployed apps</span>
+      <input type="text" class="apps-search" placeholder="Search apps...">
+    </div>
 
-    <div class="form-group">
-      <div class="form-label">Source</div>
-      <div class="toggle-row">
-        <button type="button" class="toggle-pill active" onclick="togglePill(this)">Figma Make output</button>
-        <button type="button" class="toggle-pill" onclick="togglePill(this)">Existing deployment</button>
+    <div class="apps-grid">
+
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-name"><div class="app-name-badge warning"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg></div>DexcoCodeRewrite_c09216f7</div>
+        </div>
+        <div class="app-hash">b958bc9c613c4db3...</div>
+        <div class="app-meta">
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
+            Guest322943ca
+          </div>
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><line x1="2" y1="6" x2="14" y2="6"/></svg>
+            Mar 27, 2026
+          </div>
+        </div>
+        <div class="app-expires warn">Expires in 4 days</div>
+        <div class="app-note">
+          <input type="text" placeholder="Add a note...">
+          <button class="app-note-save"><svg viewBox="0 0 16 16"><path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><path d="M10 2v4H6V2"/></svg></button>
+        </div>
+        <div class="app-actions">
+          <button class="btn-sm btn-renew">Renew</button>
+          <button class="btn-sm btn-delete">Delete</button>
+          
+        </div>
       </div>
+
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-name"><div class="app-name-badge expiring"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg></div>DexcoCodeRewrite_460140c3</div>
+        </div>
+        <div class="app-hash">d3625e9174f342a7...</div>
+        <div class="app-meta">
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
+            Guest87fc3447
+          </div>
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><line x1="2" y1="6" x2="14" y2="6"/></svg>
+            Mar 26, 2026
+          </div>
+        </div>
+        <div class="app-expires danger">Expired</div>
+        <div class="app-note">
+          <input type="text" placeholder="Add a note...">
+          <button class="app-note-save"><svg viewBox="0 0 16 16"><path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><path d="M10 2v4H6V2"/></svg></button>
+        </div>
+        <div class="app-actions">
+          <button class="btn-sm btn-renew">Deploy Again</button>
+          <button class="btn-sm btn-delete">Delete</button>
+          
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-name"><div class="app-name-badge expiring"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg></div>DexcoNodeDeploy_ed9256a1</div>
+        </div>
+        <div class="app-hash">ed23c64b5cff497a...</div>
+        <div class="app-meta">
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
+            Guest26408cf0
+          </div>
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><line x1="2" y1="6" x2="14" y2="6"/></svg>
+            Mar 26, 2026
+          </div>
+        </div>
+        <div class="app-expires danger">Expired</div>
+        <div class="app-note">
+          <input type="text" placeholder="Add a note...">
+          <button class="app-note-save"><svg viewBox="0 0 16 16"><path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><path d="M10 2v4H6V2"/></svg></button>
+        </div>
+        <div class="app-actions">
+          <button class="btn-sm btn-renew">Deploy Again</button>
+          <button class="btn-sm btn-delete">Delete</button>
+          
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-name"><div class="app-name-badge live"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg></div>DexcoCodeRewrite_e36efbf3</div>
+        </div>
+        <div class="app-hash">d7c7e970da48474b...</div>
+        <div class="app-meta">
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
+            Guest52df3a16
+          </div>
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><line x1="2" y1="6" x2="14" y2="6"/></svg>
+            Mar 25, 2026
+          </div>
+        </div>
+        <div class="app-expires safe">Expires in 6 days</div>
+        <div class="app-note">
+          <input type="text" value="Landing page v2" style="color: var(--text-2);">
+          <button class="app-note-save"><svg viewBox="0 0 16 16"><path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><path d="M10 2v4H6V2"/></svg></button>
+        </div>
+        <div class="app-actions">
+          <button class="btn-sm btn-renew">Renew</button>
+          <button class="btn-sm btn-delete">Delete</button>
+          
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-name"><div class="app-name-badge warning"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg></div>DexcoCodeRewrite_cf69063b</div>
+        </div>
+        <div class="app-hash">08b064e8a9044bba...</div>
+        <div class="app-meta">
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
+            Guesta0d7ea2d
+          </div>
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><line x1="2" y1="6" x2="14" y2="6"/></svg>
+            Mar 24, 2026
+          </div>
+        </div>
+        <div class="app-expires warn">Expires in 3 days</div>
+        <div class="app-note">
+          <input type="text" placeholder="Add a note...">
+          <button class="app-note-save"><svg viewBox="0 0 16 16"><path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><path d="M10 2v4H6V2"/></svg></button>
+        </div>
+        <div class="app-actions">
+          <button class="btn-sm btn-renew">Renew</button>
+          <button class="btn-sm btn-delete">Delete</button>
+          
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-card-header">
+          <div class="app-name"><div class="app-name-badge expiring"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg></div>DexcoCodeRewrite_b9470eaa</div>
+        </div>
+        <div class="app-hash">5bead6c6b3b74516...</div>
+        <div class="app-meta">
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></svg>
+            Guest4ad58850
+          </div>
+          <div class="app-meta-row">
+            <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><line x1="2" y1="6" x2="14" y2="6"/></svg>
+            Mar 23, 2026
+          </div>
+        </div>
+        <div class="app-expires danger">Expires in 1 day</div>
+        <div class="app-note">
+          <input type="text" value="Demo for stakeholders" style="color: var(--text-2);">
+          <button class="app-note-save"><svg viewBox="0 0 16 16"><path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><path d="M10 2v4H6V2"/></svg></button>
+        </div>
+        <div class="app-actions">
+          <button class="btn-sm btn-renew">Renew</button>
+          <button class="btn-sm btn-delete">Delete</button>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Deploy Tab -->
+  <div class="tab-content" id="tab-deploy">
+    <div class="deploy-form-wrap">
+      <form id="deployForm" onsubmit="return false">
+        <div class="form-group">
+          <div class="form-label">Source</div>
+          <div class="toggle-row">
+            <button type="button" class="toggle-pill active" onclick="togglePill(this)">Figma Make output</button>
+            <button type="button" class="toggle-pill" onclick="togglePill(this)">Existing deployment</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Build task</div>
+          <div class="select-wrap">
+            <select>
+              <option>Rewrite v2</option>
+              <option>Rewrite v1</option>
+              <option>Patch</option>
+              <option>Full rebuild</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">App name</div>
+          <div class="toggle-row" style="margin-bottom: 12px;">
+            <button type="button" class="toggle-pill active" onclick="togglePill(this)">New</button>
+            <button type="button" class="toggle-pill" onclick="togglePill(this)">Existing</button>
+          </div>
+          <input type="text" class="text-input" placeholder="Enter app name">
+          <div class="form-hint">Lowercase, no spaces. This becomes your app URL.</div>
+        </div>
+        <div class="form-group">
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-arrow">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <p class="drop-text">Drop your file here</p>
+            <p class="drop-hint">or <a href="#" onclick="return false">browse</a></p>
+            <p class="drop-formats">ZIP, HTML, or Figma Make export</p>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Deploy</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Schema Tab -->
+  <div class="tab-content" id="tab-schema">
+    <div class="schema-modes">
+      <button class="toggle-pill active" onclick="togglePill(this)">Edit Existing</button>
+      <button class="toggle-pill" onclick="togglePill(this)">Upload File</button>
+      <button class="toggle-pill" onclick="togglePill(this)">Auto Fill</button>
     </div>
 
     <div class="form-group">
-      <div class="form-label">Build task</div>
+      <div class="form-label">Target App</div>
       <div class="select-wrap">
         <select>
-          <option>Rewrite v2</option>
-          <option>Rewrite v1</option>
-          <option>Patch</option>
-          <option>Full rebuild</option>
+          <option>Select an app...</option>
+          <option>DexcoCodeRewrite_c09216f7</option>
+          <option>DexcoCodeRewrite_460140c3</option>
+          <option>DexcoNodeDeploy_ed9256a1</option>
+          <option>DexcoCodeRewrite_e36efbf3</option>
+          <option>DexcoCodeRewrite_cf69063b</option>
+          <option>DexcoCodeRewrite_b9470eaa</option>
         </select>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="form-label">App name</div>
-      <div class="toggle-row" style="margin-bottom: 12px;">
-        <button type="button" class="toggle-pill active" onclick="togglePill(this)">New</button>
-        <button type="button" class="toggle-pill" onclick="togglePill(this)">Existing</button>
+      <div class="form-label">Page Data</div>
+      <div class="select-wrap">
+        <select>
+          <option>Default</option>
+          <option>Custom</option>
+          <option>From template</option>
+        </select>
       </div>
-      <input type="text" class="text-input" placeholder="Enter app name">
     </div>
 
     <div class="form-group">
-      <div class="drop-zone" id="dropZone">
-        <div class="drop-arrow">
-          <svg viewBox="0 0 24 24">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="17 8 12 3 7 8"/>
-            <line x1="12" y1="3" x2="12" y2="15"/>
-          </svg>
-        </div>
-        <p class="drop-text">Drop your file here</p>
-        <p class="drop-hint">or <a href="#" onclick="return false">browse</a></p>
+      <div class="form-label">Content</div>
+      <div class="schema-toolbar">
+        <button class="schema-tool-btn">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 14l3.5-1L13 5.5 10.5 3 3 10.5z"/><path d="M10.5 3l2.5 2.5"/></svg>
+          Format JSON
+        </button>
+        <button class="schema-tool-btn">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2.5 5.5V2.5h3"/><path d="M13.5 10.5v3h-3"/><path d="M13.5 5.5V2.5h-3"/><path d="M2.5 10.5v3h3"/></svg>
+          Full Screen
+        </button>
       </div>
+      <textarea class="schema-editor" placeholder="Select an app to load schema data..." spellcheck="false"></textarea>
     </div>
 
-    <button type="submit" class="submit-btn">Deploy</button>
+    <button class="submit-btn">Save Changes</button>
+  </div>
 
-  </form>
+  <!-- Status Tab -->
+  <div class="tab-content" id="tab-status">
+    <div class="status-section-title">Task Progress</div>
+
+    <div class="task-list">
+
+      <div class="task-item">
+        <div class="task-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg>
+        </div>
+        <div class="task-info">
+          <div class="task-name">FigmaMakeCodeRewrite</div>
+          <div class="task-hash">31c88cfb91a9451e...</div>
+          <div class="task-detail">Nav</div>
+        </div>
+        <div class="task-badge running">Running</div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg>
+        </div>
+        <div class="task-info">
+          <div class="task-name">DexcoCodeRewrite_c09216f7</div>
+          <div class="task-hash">b958bc9c613c4db3...</div>
+          <div class="task-detail">Full page</div>
+        </div>
+        <div class="task-badge completed">Completed</div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg>
+        </div>
+        <div class="task-info">
+          <div class="task-name">DexcoNodeDeploy_ed9256a1</div>
+          <div class="task-hash">ed23c64b5cff497a...</div>
+          <div class="task-detail">Dashboard</div>
+        </div>
+        <div class="task-badge completed">Completed</div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5l-3 11"/><path d="M4 6L1.5 8.5 4 11"/><path d="M12 6l2.5 2.5L12 11"/></svg>
+        </div>
+        <div class="task-info">
+          <div class="task-name">DexcoCodeRewrite_460140c3</div>
+          <div class="task-hash">d3625e9174f342a7...</div>
+          <div class="task-detail">Settings panel</div>
+        </div>
+        <div class="task-badge failed">Failed</div>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 
 <script>
+function switchTab(el, tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+
 function togglePill(el) {
   const row = el.parentElement;
   row.querySelectorAll('.toggle-pill').forEach(p => p.classList.remove('active'));
@@ -477,12 +1172,14 @@ function togglePill(el) {
 }
 
 const zone = document.getElementById('dropZone');
-['dragenter','dragover'].forEach(e =>
-  zone.addEventListener(e, ev => { ev.preventDefault(); zone.style.borderColor = 'rgba(255,255,255,0.2)'; zone.style.background = 'var(--surface-2)'; })
-);
-['dragleave','drop'].forEach(e =>
-  zone.addEventListener(e, ev => { ev.preventDefault(); zone.style.borderColor = ''; zone.style.background = ''; })
-);
+if (zone) {
+  ['dragenter','dragover'].forEach(e =>
+    zone.addEventListener(e, ev => { ev.preventDefault(); zone.style.borderColor = 'rgba(0,0,0,0.2)'; zone.style.background = 'var(--surface-2)'; })
+  );
+  ['dragleave','drop'].forEach(e =>
+    zone.addEventListener(e, ev => { ev.preventDefault(); zone.style.borderColor = ''; zone.style.background = ''; })
+  );
+}
 </script>
 </body>
 </html>
