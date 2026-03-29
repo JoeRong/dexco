@@ -448,7 +448,8 @@ p {
 
   <!-- S1: Pipeline Overview -->
   <div class="slide">
-    <h2 class="reveal">Four stages, one bottleneck</h2>
+    <h3 class="reveal">Current Workflow</h3>
+    <h2 class="reveal reveal-delay-1">Four stages<span id="bottleneck-text" style="display:none;transition:opacity 0.4s ease;opacity:0;">, <span style="color:var(--accent);">one bottleneck</span></span></h2>
     <div class="pipeline-wrap reveal reveal-delay-1">
       <!-- Row 1: labels -->
       <div class="ps-label">
@@ -657,6 +658,9 @@ function next() {
   if (current === 1 && pipelineStep === 0) {
     pipelineStep = 1;
     document.querySelector('.pipeline-wrap').classList.add('highlight-delivery');
+    const bn = document.getElementById('bottleneck-text');
+    bn.style.display = 'inline';
+    requestAnimationFrame(() => { bn.style.opacity = '1'; });
     return;
   }
   goTo(current + 1);
@@ -665,6 +669,9 @@ function prev() {
   if (current === 1 && pipelineStep === 1) {
     pipelineStep = 0;
     document.querySelector('.pipeline-wrap').classList.remove('highlight-delivery');
+    const bn = document.getElementById('bottleneck-text');
+    bn.style.opacity = '0';
+    setTimeout(() => { bn.style.display = 'none'; }, 400);
     return;
   }
   goTo(current - 1);
