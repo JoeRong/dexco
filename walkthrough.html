@@ -168,6 +168,15 @@ p {
 }
 .pipeline-col:first-child { border-left: 3px solid var(--text-3); }
 .pipeline-col.highlight { border-left-color: var(--accent); }
+.pipeline-review-inline {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.04em;
+}
 .pipeline-num {
   font-size: 13px;
   color: var(--text-3);
@@ -468,37 +477,36 @@ p {
     <div class="pipeline-top reveal reveal-delay-2">
       <div class="pipeline-col">
         <div class="pipeline-num">01</div>
-        <div class="pipeline-name">Requirement Stage</div>
+        <div class="pipeline-name">Requirement</div>
         <div class="pipeline-sub">Idea Validation</div>
       </div>
-      <div class="pipeline-col">
+      <div class="pipeline-col" style="border-left-color:var(--yellow);">
+        <div class="pipeline-review-inline" style="background:#f5f378;color:#1a1918;">Spec Review</div>
+      </div>
+      <div class="pipeline-col highlight">
         <div class="pipeline-num">02</div>
-        <div class="pipeline-name">Design Stage</div>
-        <div class="pipeline-sub">Product Design</div>
+        <div class="pipeline-name">Design</div>
+        <div class="pipeline-sub">UI Design</div>
+      </div>
+      <div class="pipeline-col" style="border-left-color:var(--orange);">
+        <div class="pipeline-review-inline" style="background:#f5aa78;color:#1a1918;">UX Review</div>
+        <div class="pipeline-review-inline" style="background:#f5aa78;color:#1a1918;margin-top:6px;">Coherence Review</div>
       </div>
       <div class="pipeline-col highlight">
         <div class="pipeline-num">03</div>
-        <div class="pipeline-name">Delivery Stage</div>
-        <div class="pipeline-sub">Product Implement</div>
+        <div class="pipeline-name">Delivery</div>
+        <div class="pipeline-sub">Prototyping / Implement</div>
+      </div>
+      <div class="pipeline-col" style="border-left-color:var(--green);">
+        <div class="pipeline-review-inline" style="background:#78f5a3;color:#1a1918;">Bug Bash</div>
       </div>
       <div class="pipeline-col">
         <div class="pipeline-num">04</div>
         <div class="pipeline-name">Flight</div>
-        <div class="pipeline-sub">Product Implement</div>
+        <div class="pipeline-sub">Ship</div>
       </div>
     </div>
-    <div class="pipeline-bar reveal reveal-delay-3">
-      <span class="bar-stage">Idea Validation<span class="bar-num">01</span></span>
-      <span class="bar-review yellow">Spec Review</span>
-      <span class="bar-sep"></span>
-      <span class="bar-stage">UI Design<span class="bar-num">03</span></span>
-      <span class="bar-review orange">Internal UX Review</span>
-      <span class="bar-review orange">Coherence Review</span>
-      <span class="bar-sep"></span>
-      <span class="bar-stage">Prototyping/Implement<span class="bar-num">02</span></span>
-      <span class="bar-review green">Bug Bash</span>
-    </div>
-    <p class="reveal reveal-delay-4" style="margin-top:20px;text-align:center;color:var(--text-3);font-size:15px;">The orange zone is where time disappears.</p>
+    <p class="reveal reveal-delay-3" style="margin-top:20px;text-align:center;color:var(--text-3);font-size:15px;">The orange zone is where time disappears.</p>
   </div>
 
   <!-- S2: Pain Points -->
