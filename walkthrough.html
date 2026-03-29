@@ -210,8 +210,18 @@ p {
 .ps-pill.yellow { background: #f5f378; color: #1a1918; }
 .ps-pill.orange { background: #f5aa78; color: #1a1918; }
 .ps-pill.green { background: #78f5a3; color: #1a1918; }
+/* pipeline highlight state */
+.pipeline-wrap.highlight-delivery .ps-label,
+.pipeline-wrap.highlight-delivery .ps-bar {
+  opacity: 0.25;
+  transition: opacity 0.4s ease;
+}
+.pipeline-wrap.highlight-delivery .ps-label.hl,
+.pipeline-wrap.highlight-delivery .ps-bar.hl {
+  opacity: 1;
+}
 
-/* ── S2: Pain Points ── */
+
 .pain-grid {
   display: flex;
   gap: 40px;
@@ -625,11 +635,14 @@ const slides = document.querySelectorAll('.slide');
 const progress = document.getElementById('progress');
 const counter = document.getElementById('counter');
 let current = 0;
+let pipelineStep = 0; // 0 = normal, 1 = highlight delivery
 const total = slides.length;
 
 function goTo(idx) {
   if (idx < 0 || idx >= total) return;
   current = idx;
+  pipelineStep = 0;
+  document.querySelector('.pipeline-wrap')?.classList.remove('highlight-delivery');
   deck.style.transform = `translateX(-${current * 100}vw)`;
   progress.style.width = `${((current + 1) / total) * 100}%`;
   counter.textContent = `${current + 1} / ${total}`;
@@ -639,8 +652,23 @@ function goTo(idx) {
   slide.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 }
 
-function next() { goTo(current + 1); }
-function prev() { goTo(current - 1); }
+function next() {
+  // Pipeline slide (index 1): two-step
+  if (current === 1 && pipelineStep === 0) {
+    pipelineStep = 1;
+    document.querySelector('.pipeline-wrap').classList.add('highlight-delivery');
+    return;
+  }
+  goTo(current + 1);
+}
+function prev() {
+  if (current === 1 && pipelineStep === 1) {
+    pipelineStep = 0;
+    document.querySelector('.pipeline-wrap').classList.remove('highlight-delivery');
+    return;
+  }
+  goTo(current - 1);
+}
 
 // Keyboard
 document.addEventListener('keydown', e => {
