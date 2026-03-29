@@ -917,7 +917,7 @@ p {
   <!-- Pipeline Reprise 3: Requirement Stage -->
   <div class="slide" id="slide-pipeline-3">
     <h3 class="reveal">Current Workflow</h3>
-    <h2 class="reveal reveal-delay-1">Four stages<span id="bottleneck-text-3" style="display:none;transition:opacity 0.4s ease;opacity:0;">, <span style="color:var(--accent);">one idea</span></span></h2>
+    <h2 class="reveal reveal-delay-1">Four stages<span id="bottleneck-text-3" style="display:none;transition:opacity 0.4s ease;opacity:0;">, <span style="color:var(--accent);">one skill</span></span></h2>
     <div class="pipeline-wrap reveal reveal-delay-1" id="pipeline-3">
       <!-- Row 1: labels -->
       <div class="ps-label hl3">
@@ -959,8 +959,8 @@ p {
   <!-- S14: Spec to Prompt Intro -->
   <div class="slide">
     <div class="shift-container">
-      <h3 class="reveal">Spec to Prompt</h3>
-      <h2 class="reveal reveal-delay-1">What if AI could turn specs into prompts?</h2>
+      <h3 class="reveal">Spec to Design</h3>
+      <h2 class="reveal reveal-delay-1">What if AI could turn specs into design prompts?</h2>
       <div class="shift-answer reveal reveal-delay-2">
         <span>PM Spec</span>
         <span class="shift-arrow">&rarr;</span>
@@ -968,7 +968,35 @@ p {
         <span class="shift-arrow">&rarr;</span>
         <span style="color:var(--accent);font-weight:600;">Design Prompt</span>
       </div>
-      <p class="reveal reveal-delay-3" style="margin-top:32px;text-align:center;">Reading specs, filtering noise, extracting design intent — let AI do the heavy lifting.</p>
+      <p class="reveal reveal-delay-3" style="margin-top:32px;text-align:center;">We built a design skill that reads PM specs, filters noise, and guides multi-round Q&A to produce an implementation plan.</p>
+    </div>
+  </div>
+
+  <!-- S15: SERP Structure -->
+  <div class="slide">
+    <div class="challenge-layout">
+      <div class="challenge-left">
+        <h3 class="reveal">Product Framework</h3>
+        <h2 class="reveal reveal-delay-1">SERP Page Architecture</h2>
+        <p class="challenge-detail reveal reveal-delay-2">
+          Before building the skill, we mapped SERP's full structure — Header, Top Wide, Primary, Algo, Rail — with three layout variants. This gives AI a shared vocabulary to locate where a spec's changes belong.
+        </p>
+      </div>
+      <div class="challenge-right reveal reveal-delay-2"><img src="img/slide14a.jpg" alt="SERP page layout architecture" style="width:100%;height:100%;object-fit:contain;border-radius:12px;"></div>
+    </div>
+  </div>
+
+  <!-- S16: Design Skill Workflow -->
+  <div class="slide">
+    <div class="challenge-layout">
+      <div class="challenge-left">
+        <h3 class="reveal">Design Workflow</h3>
+        <h2 class="reveal reveal-delay-1">Spec to Design Skill</h2>
+        <p class="challenge-detail reveal reveal-delay-2">
+          The skill follows a structured flow: analyze the spec to locate SERP regions, select layout variants, then run structured + open-ended Q&A — covering interaction details, content density, edge cases — before generating the final deliverables.
+        </p>
+      </div>
+      <div class="challenge-right reveal reveal-delay-2"><img src="img/slide14b.jpg" alt="Spec to Design workflow" style="width:100%;height:100%;object-fit:contain;border-radius:12px;"></div>
     </div>
   </div>
 
