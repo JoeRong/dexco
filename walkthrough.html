@@ -1294,18 +1294,71 @@ goTo(0);
 
 // ── Script Panel ──
 const scriptNotes = [
-  `大家好，今天分享的主题是 Rethinking the Design to Product Handoff。我们团队一直在探索一个问题——设计到产品之间的 handoff，有没有更好的方式。`,
-  `我们的工作流程分四步。第一步 Requirement，PM 发 Spec、做 Idea Validation。第二步 Design，做 Exploration 和 Coherence Review。第三步 Delivery，开发拿设计去做 demo，前端搭页面，后端接数据。这个阶段整个团队都在等——等 demo 出来，在真实环境下看跟设计有没有出入、有没有 edge case。做完 Bug Bash 没问题了，第四步推 Flight 上线。<br><br><em style="color:var(--text-3);">→ 点击后：</em>最近新闻团队前端大量减员，资源非常吃紧。之前这些来回——等 demo、改设计、再开发——还能磨，现在完全没时间磨了。Delivery 这个瓶颈变得尤为严重。`,
-  `具体来说有三个问题。Idle——设计做完了，等开发实现，可能等好几天。Drift——设计意图在翻译过程中丢失，来回沟通没完没了。Loop——开发做完才发现边界情况，改设计、重新开发、再测试，无限循环。`,
-  `所以我们想：如果设计师能自己部署呢？Figma Make 生成代码，直接部署上线，跳过 handoff。`,
-  `第一个挑战是输出质量。Figma Make 生成的代码和设计稿不一定一样。解决方法是写 design-guidelines.md 和 global.css，给 AI 足够的约束，每天迭代优化。`,
-  `第二个挑战：光是看起来对不够，代码结构要能被前后端工程师直接用。这不是 demo，是要上线的。靠 prompt engineering 和反复调试解决。`,
-  `第三个挑战，也是大家最常问的：这和 Figma 原型有什么区别？答案是数据分离——我们从生成的代码里抽出 data.ts，后端据此定义 data schema，对接真实 API。这不是原型，是有数据的产品。`,
-  `最终我们做出了 Dexco——一个给设计师用的部署平台。从 Figma 设计到 Figma Make 生成代码，到 Dexco 一键部署，到 live build。设计师全程不用写代码。`,
-  `回到这个流程图。我们刚才解决了 Delivery 的瓶颈。<br><br><em style="color:var(--text-3);">→ 点击后：</em>现在看 Design Stage——这里有一个新的机会。`,
-  `既然 Figma Make 靠 guideline.md 和 global.css 能稳定输出设计了，我们想：能不能反过来用它做设计探索？我们花了 10 轮对话，从设计文件里提炼出 Guideline 2.md。`,
-  `先验证基本能力：让 Figma Make 仅靠 guideline 还原一个 Magazine Layout。结果只用了 2 轮对话，几乎完美还原。`,
-  `然后做真正的探索：基于设计规范生成全新的卡片样式。对比一下——之前没有 guideline 的时候，同样的任务需要 86 次对话、将近 10 个小时。有了 guideline 之后效率完全不同。这就是我们接下来要继续探索的方向。`
+  /* 1 - Cover */
+  `Hi everyone, today I want to share how our team is rethinking the design-to-product handoff. We've been exploring whether there's a better way to bridge this gap.`,
+
+  /* 2 - Pipeline Overview (two clicks: show → highlight Delivery) */
+  `Our workflow has four stages. Requirement — PM writes spec, we do idea validation and spec analysis. Design — exploration, review. Delivery — engineers build the demo, we check against design, run bug bash. Then Flight — ship it.<br><br><em style="color:var(--text-3);">→ click:</em> Recently our frontend team had major headcount cuts. The back-and-forth between design and dev — we used to be able to iterate. Now there's no time. The Delivery bottleneck became critical.`,
+
+  /* 3 - Three Pain Points (Idle / Drift / Loop) */
+  `Three specific problems. Idle — design is done, waiting days for dev to implement. Drift — design intent gets lost in translation, endless back-and-forth. Loop — edge cases discovered after implementation, redesign, rebuild, retest, repeat.`,
+
+  /* 4 - The Shift */
+  `So we asked: what if designers could deploy themselves? Use Figma Make to generate code and deploy directly — skip the handoff entirely.`,
+
+  /* 5 - Challenge 1: Output Fidelity */
+  `First challenge: output quality. Figma Make's generated code doesn't always match the design. Our solution — write design-guidelines.md and global.css, giving AI enough constraints. We iterated on these daily.`,
+
+  /* 6 - Challenge 2: Structural Integrity */
+  `Second challenge: it's not enough to look right — the code structure needs to be usable by frontend and backend engineers. This isn't a prototype, it's shipping to production. We solved this through prompt engineering and continuous refinement.`,
+
+  /* 7 - Challenge 3: Beyond a Pretty Page */
+  `Third challenge, and the most common question: how is this different from a Figma prototype? The answer is data separation. We extract data.ts from generated code, backend defines the data schema accordingly, connecting to real APIs. This isn't a prototype — it's a product with real data.`,
+
+  /* 8 - Result: App Deployment */
+  `So we built an app deployment platform. From Figma design → Figma Make generates code → one-click deploy → live build. Designers never write a single line of code.`,
+
+  /* 9 - Pipeline Reprise 2: highlight Design (two clicks) */
+  `Back to the pipeline. We just solved the Delivery bottleneck.<br><br><em style="color:var(--text-3);">→ click:</em> Now look at the Design Stage — there's an opportunity here.`,
+
+  /* 10 - Design Exploration: Why */
+  `Since Figma Make can reliably output designs using guideline.md and global.css, we thought — can we flip it? Use those same constraints for design exploration? We spent 10 rounds of conversation distilling a Guideline 2.md from our design files.`,
+
+  /* 11 - Design Framework → Guideline */
+  `Before running any exploration tasks, we did the groundwork. We took our design framework — layout patterns, spacing rules, component behaviors, visual hierarchy — and distilled it into a structured Design Guideline that AI can read and follow. This guideline becomes the constraint layer.`,
+
+  /* 12 - Task 1: Reproduce */
+  `First, we validated the basics: can Figma Make reproduce an existing Magazine Layout using only the guideline? Result — just 2 rounds of conversation, near-perfect reproduction.`,
+
+  /* 13 - Task 2: Explore */
+  `Then the real test: generate entirely new card styles based on the design spec. Compare — without guidelines, the same task took 86 conversations, almost 10 hours. With guidelines, the efficiency is completely different.`,
+
+  /* 14 - Pipeline Reprise 3: highlight Requirement (two clicks) */
+  `Back to the pipeline again. We've addressed Delivery and explored Design.<br><br><em style="color:var(--text-3);">→ click:</em> Now look at the Requirement Stage. There's one more idea — what about the very beginning of the process?`,
+
+  /* 15 - Spec to Design Intro */
+  `What if AI could read a PM spec and generate an implementation plan? Not just summarize — actually understand the spec, ask the right questions, and produce a structured plan that designers can execute.`,
+
+  /* 16 - Groundwork: Architecture + Thinking Process */
+  `Two key investments before building this. First, we mapped SERP's full page architecture — Header, Top Wide, Primary, Algo, Rail — with layout variants. This gives AI a shared vocabulary. Second, we modeled the designer's thinking process — how a designer reads a spec, what to focus on, what to filter out.`,
+
+  /* 17 - Design Skill Workflow */
+  `The skill follows five steps. Spec Analysis — AI reads the spec, maps changes to SERP regions. Layout Variants — selects from predefined patterns. Structured Q&A — confirms structure, guidelines, branding. Open Q&A — explores interaction details, edge cases, scope. Finally, agrees on deliverables.`,
+
+  /* 18 - Implementation Planning */
+  `The output: a structured implementation plan generated from spec analysis and multi-round Q&A — ready for design execution.`,
+
+  /* 19 - Result Showcase */
+  `Here's what the final output looks like — from a PM spec to an actionable implementation plan, generated entirely through the design skill.`,
+
+  /* 20 - Harness Engineering */
+  `Now let's zoom out. These three themes are really about one thing: Harness Engineering. Four layers — Constraint Layer: design guidelines that tell AI how to think. Tool Layer: CSS, schemas, structured formats AI can consume. Workflow Layer: skills that externalize the designer's thinking process. Review Layer: the human checkpoint, where AI proposes and humans approve.`,
+
+  /* 21 - Role Shift */
+  `The shift we're seeing: from Executor to Harness Engineer. Instead of drawing every screen, we're designing the rules AI follows. Linear output becomes exponential output.`,
+
+  /* 22 - Closing */
+  `The question is not "Can AI do design?" — it's "How do you harness it?" Thank you.`
 ];
 
 const scriptPanel = document.getElementById('scriptPanel');
