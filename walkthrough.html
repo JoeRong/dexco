@@ -357,13 +357,18 @@ p {
   gap: clamp(24px, 3vw, 56px);
   margin-top: clamp(32px, 3vw, 56px);
   max-width: 90vw;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .pain-card {
-  flex: 1;
+  flex: 1 1 calc(50% - 56px);
+  max-width: 420px;
+  min-width: 260px;
   padding: clamp(28px, 2.5vw, 52px) clamp(20px, 2vw, 40px);
   background: var(--surface);
   border-top: 3px solid var(--surface-3);
   transition: border-color 0.3s;
+  text-align: center;
 }
 .pain-card.active {
   border-top-color: var(--accent);
