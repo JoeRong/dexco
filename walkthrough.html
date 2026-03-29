@@ -539,6 +539,85 @@ p {
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Script Panel ── */
+.script-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--surface-3);
+  background: var(--surface);
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.script-toggle:hover { color: var(--text-1); border-color: var(--accent); }
+.script-toggle.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.script-panel {
+  position: fixed;
+  top: 0;
+  right: -380px;
+  width: 360px;
+  height: 100vh;
+  background: var(--surface);
+  border-left: 1px solid var(--surface-3);
+  z-index: 190;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+.script-panel.open { right: 0; }
+.script-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--surface-3);
+}
+.script-panel-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.script-panel-close {
+  background: none;
+  border: none;
+  color: var(--text-3);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.script-panel-close:hover { color: var(--text-1); }
+.script-panel-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+.script-panel-body .script-slide-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.script-panel-body p { margin: 0 0 16px; }
 </style>
 </head>
 <body>
@@ -842,6 +921,22 @@ p {
 
 </div>
 
+<!-- Script Panel Toggle -->
+<button class="script-toggle" id="scriptToggle" title="Speaker notes">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
+  </svg>
+</button>
+
+<!-- Script Panel -->
+<div class="script-panel" id="scriptPanel">
+  <div class="script-panel-header">
+    <span class="script-panel-title">Speaker Notes</span>
+    <button class="script-panel-close" id="scriptClose">&times;</button>
+  </div>
+  <div class="script-panel-body" id="scriptBody"></div>
+</div>
+
 <!-- Progress -->
 <div class="progress" id="progress"></div>
 <div class="counter" id="counter"></div>
@@ -946,6 +1041,50 @@ document.addEventListener('wheel', e => {
 
 // Init
 goTo(0);
+
+// ── Script Panel ──
+const scriptNotes = [
+  `大家好，今天分享的主题是 Rethinking the Design to Product Handoff。我们团队一直在探索一个问题——设计到产品之间的 handoff，有没有更好的方式。`,
+  `这是我们现在的工作流，四个阶段：需求、设计、交付、上线。看起来很清晰对吧？<br><br><em style="color:var(--text-3);">→ 点击后：</em>但瓶颈在第三段——Delivery Stage。设计做完了，prototyping、implement、bug bash，这些全靠开发。设计师在这个阶段基本是等待。`,
+  `具体来说有三个问题。Idle——设计做完了，等开发实现，可能等好几天。Drift——设计意图在翻译过程中丢失，来回沟通没完没了。Loop——开发做完才发现边界情况，改设计、重新开发、再测试，无限循环。`,
+  `所以我们想：如果设计师能自己部署呢？Figma Make 生成代码，直接部署上线，跳过 handoff。`,
+  `第一个挑战是输出质量。Figma Make 生成的代码和设计稿不一定一样。解决方法是写 design-guidelines.md 和 global.css，给 AI 足够的约束，每天迭代优化。`,
+  `第二个挑战：光是看起来对不够，代码结构要能被前后端工程师直接用。这不是 demo，是要上线的。靠 prompt engineering 和反复调试解决。`,
+  `第三个挑战，也是大家最常问的：这和 Figma 原型有什么区别？答案是数据分离——我们从生成的代码里抽出 data.ts，后端据此定义 data schema，对接真实 API。这不是原型，是有数据的产品。`,
+  `最终我们做出了 Dexco——一个给设计师用的部署平台。从 Figma 设计到 Figma Make 生成代码，到 Dexco 一键部署，到 live build。设计师全程不用写代码。`,
+  `回到这个流程图。我们刚才解决了 Delivery 的瓶颈。<br><br><em style="color:var(--text-3);">→ 点击后：</em>现在看 Design Stage——这里有一个新的机会。`,
+  `既然 Figma Make 靠 guideline.md 和 global.css 能稳定输出设计了，我们想：能不能反过来用它做设计探索？我们花了 10 轮对话，从设计文件里提炼出 Guideline 2.md。`,
+  `先验证基本能力：让 Figma Make 仅靠 guideline 还原一个 Magazine Layout。结果只用了 2 轮对话，几乎完美还原。`,
+  `然后做真正的探索：基于设计规范生成全新的卡片样式。对比一下——之前没有 guideline 的时候，同样的任务需要 86 次对话、将近 10 个小时。有了 guideline 之后效率完全不同。这就是我们接下来要继续探索的方向。`
+];
+
+const scriptPanel = document.getElementById('scriptPanel');
+const scriptToggle = document.getElementById('scriptToggle');
+const scriptClose = document.getElementById('scriptClose');
+const scriptBody = document.getElementById('scriptBody');
+
+function updateScriptPanel() {
+  const note = scriptNotes[current] || '';
+  scriptBody.innerHTML = `<div class="script-slide-num">Slide ${current + 1} / ${total}</div><p>${note}</p>`;
+}
+
+scriptToggle.addEventListener('click', () => {
+  const isOpen = scriptPanel.classList.toggle('open');
+  scriptToggle.classList.toggle('active', isOpen);
+  if (isOpen) updateScriptPanel();
+});
+
+scriptClose.addEventListener('click', () => {
+  scriptPanel.classList.remove('open');
+  scriptToggle.classList.remove('active');
+});
+
+// Update script when slide changes
+const origGoTo = goTo;
+goTo = function(idx) {
+  origGoTo(idx);
+  if (scriptPanel.classList.contains('open')) updateScriptPanel();
+};
 </script>
 
 </body>
