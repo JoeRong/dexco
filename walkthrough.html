@@ -98,6 +98,7 @@ p {
   text-align: left;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 }
 .slide-cover h1 {
   font-size: 96px;
@@ -107,20 +108,7 @@ p {
   font-weight: 700;
   color: var(--text-1);
   letter-spacing: -0.03em;
-}
-.slide-cover h1 .highlight {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  padding: 2px 16px;
-  border-radius: 8px;
-  font-size: 36px;
-  font-weight: 600;
-  vertical-align: middle;
-  margin-left: 8px;
-  letter-spacing: 0;
   position: relative;
-  top: -8px;
 }
 .slide-cover .tagline {
   font-size: 22px;
@@ -138,6 +126,34 @@ p {
 .slide-cover .team span {
   color: var(--text-2);
   font-weight: 500;
+}
+.sticker {
+  position: absolute;
+  padding: 8px 20px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+.sticker-1 {
+  top: 80px;
+  right: 160px;
+  transform: rotate(-6deg);
+}
+.sticker-2 {
+  top: 240px;
+  right: 80px;
+  transform: rotate(4deg);
+}
+.sticker-3 {
+  bottom: 200px;
+  right: 200px;
+  transform: rotate(-3deg);
 }
 
 /* ── S1: Pipeline ── */
@@ -410,8 +426,11 @@ p {
 
   <!-- S0: Cover -->
   <div class="slide slide-cover">
-    <h1 class="reveal">Rethinking<br>the Design to<br><span class="highlight">Product</span> Handoff</h1>
+    <h1 class="reveal">Rethinking<br>the Design to<br>Product Handoff</h1>
     <div class="team reveal reveal-delay-1"><span>Dazhou</span> · <span>Xingyu</span> · <span>Lemon</span> · <span>Nick</span> · <span>Siliang</span></div>
+    <div class="sticker sticker-1 reveal reveal-delay-1">Prototyping Pipeline</div>
+    <div class="sticker sticker-2 reveal reveal-delay-2">Design System</div>
+    <div class="sticker sticker-3 reveal reveal-delay-3">Deployment Platform</div>
   </div>
 
   <!-- S1: Pipeline Overview -->
