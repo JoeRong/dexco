@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design × Code — Walkthrough</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r168/three.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Serif+Display&display=swap');
 
@@ -37,6 +38,8 @@ html, body {
   display: flex;
   height: 100%;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .slide {
@@ -656,6 +659,7 @@ p {
 </style>
 </head>
 <body>
+<div id="pixel-blast-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></div>
 
 <div class="deck" id="deck">
 
@@ -1388,6 +1392,140 @@ goTo = function(idx) {
   origGoTo(idx);
   if (scriptPanel.classList.contains('open')) updateScriptPanel();
 };
+</script>
+
+<script>
+// PixelBlast background (vanilla Three.js port)
+(function(){
+  const container = document.getElementById('pixel-blast-bg');
+  const VERTEX_SRC = `void main() { gl_Position = vec4(position, 1.0); }`;
+  const FRAGMENT_SRC = `
+precision highp float;
+uniform vec3  uColor;
+uniform vec2  uResolution;
+uniform float uTime;
+uniform float uPixelSize;
+uniform float uScale;
+uniform float uDensity;
+uniform float uPixelJitter;
+uniform int   uEnableRipples;
+uniform float uRippleSpeed;
+uniform float uRippleThickness;
+uniform float uRippleIntensity;
+uniform float uEdgeFade;
+uniform int   uShapeType;
+const int MAX_CLICKS = 10;
+uniform vec2  uClickPos[MAX_CLICKS];
+uniform float uClickTimes[MAX_CLICKS];
+out vec4 fragColor;
+float Bayer2(vec2 a){a=floor(a);return fract(a.x/2.+a.y*a.y*.75);}
+#define Bayer4(a) (Bayer2(.5*(a))*0.25+Bayer2(a))
+#define Bayer8(a) (Bayer4(.5*(a))*0.25+Bayer2(a))
+float hash11(float n){return fract(sin(n)*43758.5453);}
+float vnoise(vec3 p){
+  vec3 ip=floor(p),fp=fract(p);
+  float n000=hash11(dot(ip+vec3(0,0,0),vec3(1,57,113)));
+  float n100=hash11(dot(ip+vec3(1,0,0),vec3(1,57,113)));
+  float n010=hash11(dot(ip+vec3(0,1,0),vec3(1,57,113)));
+  float n110=hash11(dot(ip+vec3(1,1,0),vec3(1,57,113)));
+  float n001=hash11(dot(ip+vec3(0,0,1),vec3(1,57,113)));
+  float n101=hash11(dot(ip+vec3(1,0,1),vec3(1,57,113)));
+  float n011=hash11(dot(ip+vec3(0,1,1),vec3(1,57,113)));
+  float n111=hash11(dot(ip+vec3(1,1,1),vec3(1,57,113)));
+  vec3 w=fp*fp*fp*(fp*(fp*6.0-15.0)+10.0);
+  return mix(mix(mix(n000,n100,w.x),mix(n010,n110,w.x),w.y),mix(mix(n001,n101,w.x),mix(n011,n111,w.x),w.y),w.z)*2.0-1.0;
+}
+float fbm2(vec2 uv,float t){
+  vec3 p=vec3(uv*uScale,t);float amp=1.0,freq=1.0,sum=1.0;
+  for(int i=0;i<5;++i){sum+=amp*vnoise(p*freq);freq*=1.25;amp*=1.0;}
+  return sum*0.5+0.5;
+}
+void main(){
+  vec2 fragCoord=gl_FragCoord.xy-uResolution*.5;
+  float ar=uResolution.x/uResolution.y;
+  vec2 pixelId=floor(fragCoord/uPixelSize);
+  float cellPS=8.0*uPixelSize;
+  vec2 cellId=floor(fragCoord/cellPS);
+  vec2 uv=cellId*cellPS/uResolution*vec2(ar,1.0);
+  float base=fbm2(uv,uTime*0.05)*0.5-0.65;
+  float feed=base+(uDensity-0.5)*0.3;
+  if(uEnableRipples==1){
+    for(int i=0;i<MAX_CLICKS;++i){
+      vec2 pos=uClickPos[i]; if(pos.x<0.0) continue;
+      vec2 cuv=((pos-uResolution*.5-cellPS*.5)/uResolution)*vec2(ar,1.0);
+      float t=max(uTime-uClickTimes[i],0.0);
+      float r=distance(uv,cuv);
+      float waveR=uRippleSpeed*t;
+      float ring=exp(-pow((r-waveR)/uRippleThickness,2.0));
+      float atten=exp(-t)*exp(-10.0*r);
+      feed=max(feed,ring*atten*uRippleIntensity);
+    }
+  }
+  float bayer=Bayer8(fragCoord/uPixelSize)-0.5;
+  float bw=step(0.5,feed+bayer);
+  float h=fract(sin(dot(pixelId,vec2(127.1,311.7)))*43758.5453);
+  float coverage=bw*(1.0+(h-0.5)*uPixelJitter);
+  float M=coverage;
+  if(uEdgeFade>0.0){
+    vec2 norm=gl_FragCoord.xy/uResolution;
+    float edge=min(min(norm.x,norm.y),min(1.0-norm.x,1.0-norm.y));
+    M*=smoothstep(0.0,uEdgeFade,edge);
+  }
+  vec3 sc=mix(uColor*12.92,1.055*pow(uColor,vec3(1.0/2.4))-0.055,step(0.0031308,uColor));
+  fragColor=vec4(sc,M);
+}`;
+  const renderer = new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});
+  renderer.domElement.style.cssText='width:100%;height:100%';
+  renderer.setClearAlpha(0);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  container.appendChild(renderer.domElement);
+  const dpr = renderer.getPixelRatio();
+  const color = new THREE.Color('#e3e2de');
+  const uniforms = {
+    uResolution:{value:new THREE.Vector2()},
+    uTime:{value:0},
+    uColor:{value:color},
+    uClickPos:{value:Array.from({length:10},()=>new THREE.Vector2(-1,-1))},
+    uClickTimes:{value:new Float32Array(10)},
+    uShapeType:{value:0},
+    uPixelSize:{value:4*dpr},
+    uScale:{value:2},
+    uDensity:{value:1},
+    uPixelJitter:{value:0},
+    uEnableRipples:{value:1},
+    uRippleSpeed:{value:0.4},
+    uRippleThickness:{value:0.12},
+    uRippleIntensity:{value:1.5},
+    uEdgeFade:{value:0.25}
+  };
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+  const material = new THREE.ShaderMaterial({vertexShader:VERTEX_SRC,fragmentShader:FRAGMENT_SRC,uniforms,transparent:true,depthTest:false,depthWrite:false,glslVersion:THREE.GLSL3});
+  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),material));
+  const clock = new THREE.Clock();
+  const offset = Math.random()*1000;
+  function resize(){
+    const w=container.clientWidth||1,h=container.clientHeight||1;
+    renderer.setSize(w,h,false);
+    uniforms.uResolution.value.set(renderer.domElement.width,renderer.domElement.height);
+  }
+  resize();
+  new ResizeObserver(resize).observe(container);
+  let clickIx=0;
+  container.style.pointerEvents='auto';
+  container.addEventListener('pointerdown',e=>{
+    const rect=renderer.domElement.getBoundingClientRect();
+    const sx=renderer.domElement.width/rect.width,sy=renderer.domElement.height/rect.height;
+    uniforms.uClickPos.value[clickIx].set((e.clientX-rect.left)*sx,(rect.height-(e.clientY-rect.top))*sy);
+    uniforms.uClickTimes.value[clickIx]=uniforms.uTime.value;
+    clickIx=(clickIx+1)%10;
+  },{passive:true});
+  (function animate(){
+    uniforms.uTime.value=offset+clock.getElapsedTime()*0.5;
+    renderer.render(scene,camera);
+    requestAnimationFrame(animate);
+  })();
+})();
 </script>
 
 </body>
