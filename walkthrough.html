@@ -237,6 +237,18 @@ p {
 .pipeline-wrap.highlight-design .ps-label.hl2 { border-left-color: var(--accent); }
 .pipeline-wrap.highlight-design .ps-bar.hl2 { border-left-color: var(--accent); }
 
+.pipeline-wrap.highlight-requirement .ps-label,
+.pipeline-wrap.highlight-requirement .ps-bar {
+  opacity: 0.25;
+  transition: opacity 0.4s ease;
+}
+.pipeline-wrap.highlight-requirement .ps-label.hl3,
+.pipeline-wrap.highlight-requirement .ps-bar.hl3 {
+  opacity: 1;
+}
+.pipeline-wrap.highlight-requirement .ps-label.hl3 { border-left-color: var(--accent); }
+.pipeline-wrap.highlight-requirement .ps-bar.hl3 { border-left-color: var(--accent); }
+
 
 /* ── Design Exploration ── */
 .explore-steps {
@@ -902,6 +914,48 @@ p {
     </div>
   </div>
 
+  <!-- Pipeline Reprise 3: Requirement Stage -->
+  <div class="slide" id="slide-pipeline-3">
+    <h3 class="reveal">Current Workflow</h3>
+    <h2 class="reveal reveal-delay-1">Four stages<span id="bottleneck-text-3" style="display:none;transition:opacity 0.4s ease;opacity:0;">, <span style="color:var(--accent);">one more opportunity</span></span></h2>
+    <div class="pipeline-wrap reveal reveal-delay-1" id="pipeline-3">
+      <!-- Row 1: labels -->
+      <div class="ps-label hl3">
+        <div class="ps-num">01</div>
+        <div class="ps-name">Requirement Stage</div>
+      </div>
+      <div class="ps-label">
+        <div class="ps-num">02</div>
+        <div class="ps-name">Design Stage</div>
+      </div>
+      <div class="ps-label">
+        <div class="ps-num">03</div>
+        <div class="ps-name">Delivery Stage</div>
+      </div>
+      <div class="ps-label">
+        <div class="ps-num">04</div>
+        <div class="ps-name">Flight</div>
+      </div>
+      <!-- Row 2: pill bars -->
+      <div class="ps-bar hl3">
+        <span class="ps-pill white">Idea Validation</span>
+        <span class="ps-pill yellow">Spec Review</span>
+      </div>
+      <div class="ps-bar">
+        <span class="ps-pill white">UI Design</span>
+        <span class="ps-pill orange">Internal UX Review</span>
+        <span class="ps-pill orange">Coherence Review</span>
+      </div>
+      <div class="ps-bar">
+        <span class="ps-pill white">Prototyping / Implement</span>
+        <span class="ps-pill green">Bug Bash</span>
+      </div>
+      <div class="ps-bar">
+        <span class="ps-pill white">Ship</span>
+      </div>
+    </div>
+  </div>
+
 
 </div>
 
@@ -934,11 +988,13 @@ const counter = document.getElementById('counter');
 let current = 0;
 let pipelineStep = 0; // 0 = normal, 1 = highlight delivery
 let pipeline2Step = 0; // 0 = normal, 1 = highlight design
+let pipeline3Step = 0; // 0 = normal, 1 = highlight requirement
 let challenge1Step = 0; // 0 = tags hidden, 1 = tags shown
 let challenge2Step = 0;
 let challenge3Step = 0;
 const total = slides.length;
 const pipeline2Index = Array.from(slides).findIndex(s => s.id === 'slide-pipeline-2');
+const pipeline3Index = Array.from(slides).findIndex(s => s.id === 'slide-pipeline-3');
 const challenge1Index = Array.from(slides).findIndex(s => s.id === 'slide-challenge1');
 const challenge2Index = Array.from(slides).findIndex(s => s.id === 'slide-challenge2');
 const challenge3Index = Array.from(slides).findIndex(s => s.id === 'slide-challenge3');
@@ -948,15 +1004,19 @@ function goTo(idx) {
   current = idx;
   pipelineStep = 0;
   pipeline2Step = 0;
+  pipeline3Step = 0;
   challenge1Step = 0;
   challenge2Step = 0;
   challenge3Step = 0;
   document.querySelector('.pipeline-wrap')?.classList.remove('highlight-delivery');
   document.getElementById('pipeline-2')?.classList.remove('highlight-design');
+  document.getElementById('pipeline-3')?.classList.remove('highlight-requirement');
   const bn = document.getElementById('bottleneck-text');
   if (bn) { bn.style.opacity = '0'; bn.style.display = 'none'; }
   const bn2 = document.getElementById('bottleneck-text-2');
   if (bn2) { bn2.style.opacity = '0'; bn2.style.display = 'none'; }
+  const bn3 = document.getElementById('bottleneck-text-3');
+  if (bn3) { bn3.style.opacity = '0'; bn3.style.display = 'none'; }
   ['challenge1-tags','challenge2-tags','challenge3-tags'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.style.opacity = '0'; el.style.transform = 'translateY(12px)'; }
@@ -1001,6 +1061,14 @@ function next() {
     requestAnimationFrame(() => { bn2.style.opacity = '1'; });
     return;
   }
+  if (current === pipeline3Index && pipeline3Step === 0) {
+    pipeline3Step = 1;
+    document.getElementById('pipeline-3').classList.add('highlight-requirement');
+    const bn3 = document.getElementById('bottleneck-text-3');
+    bn3.style.display = 'inline';
+    requestAnimationFrame(() => { bn3.style.opacity = '1'; });
+    return;
+  }
   goTo(current + 1);
 }
 function prev() {
@@ -1021,6 +1089,14 @@ function prev() {
     const bn2 = document.getElementById('bottleneck-text-2');
     bn2.style.opacity = '0';
     setTimeout(() => { bn2.style.display = 'none'; }, 400);
+    return;
+  }
+  if (current === pipeline3Index && pipeline3Step === 1) {
+    pipeline3Step = 0;
+    document.getElementById('pipeline-3').classList.remove('highlight-requirement');
+    const bn3 = document.getElementById('bottleneck-text-3');
+    bn3.style.opacity = '0';
+    setTimeout(() => { bn3.style.display = 'none'; }, 400);
     return;
   }
   goTo(current - 1);
