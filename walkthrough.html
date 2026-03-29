@@ -156,25 +156,18 @@ p {
 /* ── S1: Pipeline ── */
 .pipeline-wrap {
   width: 100%;
-  max-width: 960px;
+  max-width: 1100px;
   margin: 32px auto 0;
-  display: flex;
-  gap: 0;
+  display: grid;
+  grid-template-columns: 1.2fr 2.2fr 2.2fr 0.8fr;
+  row-gap: 0;
 }
-.pipeline-section {
-  flex: 1 1 0;
-  min-width: 0;
-  border-left: 2px solid var(--text-3);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.pipeline-section.hl { border-left-color: var(--accent); }
-.pipeline-section:first-child { border-left: 2px solid var(--text-2); }
-/* top label */
 .ps-label {
-  padding: 14px 18px 0;
+  padding: 14px 18px 12px;
+  border-left: 2px solid var(--surface-3);
 }
+.ps-label:nth-child(1) { border-left: 2px solid var(--text-2); }
+.ps-label.hl { border-left-color: var(--accent); }
 .ps-num {
   font-size: 14px;
   font-weight: 700;
@@ -194,47 +187,29 @@ p {
   color: var(--text-3);
   font-family: 'Space Grotesk', sans-serif;
 }
-/* bottom bar row */
 .ps-bar {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 0 0 14px 18px;
-  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 0 8px 14px 18px;
+  border-left: 2px solid var(--surface-3);
 }
-.ps-block {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  background: #fff;
+.ps-bar:nth-child(5) { border-left: 2px solid var(--text-2); }
+.ps-bar.hl { border-left-color: var(--accent); }
+.ps-pill {
+  padding: 8px 14px;
   border-radius: 20px;
-  font-size: 10px;
-  font-weight: 600;
-  font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #1a1918;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.ps-block .ps-block-num {
-  font-size: 10px;
-  color: #8a857e;
-  font-weight: 600;
-  margin-left: 6px;
-}
-.ps-review {
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   font-family: 'Space Grotesk', sans-serif;
   white-space: nowrap;
   flex-shrink: 0;
 }
-.ps-review.yellow { background: #f5f378; color: #1a1918; }
-.ps-review.orange { background: #f5aa78; color: #1a1918; }
-.ps-review.green { background: #78f5a3; color: #1a1918; }
+.ps-pill.white { background: #fff; color: #1a1918; letter-spacing: 0.04em; text-transform: uppercase; }
+.ps-pill.white .pill-num { color: #8a857e; margin-left: 6px; }
+.ps-pill.yellow { background: #f5f378; color: #1a1918; }
+.ps-pill.orange { background: #f5aa78; color: #1a1918; }
+.ps-pill.green { background: #78f5a3; color: #1a1918; }
 
 /* ── S2: Pain Points ── */
 .pain-grid {
@@ -465,49 +440,43 @@ p {
   <div class="slide">
     <h2 class="reveal">Four stages, one bottleneck</h2>
     <div class="pipeline-wrap reveal reveal-delay-1">
-      <div class="pipeline-section">
-        <div class="ps-label">
-          <div class="ps-num">01</div>
-          <div class="ps-name">Requirement Stage</div>
-          <div class="ps-sub">Idea Validation</div>
-        </div>
-        <div class="ps-bar">
-          <div class="ps-block">IDEA VALIDATION<span class="ps-block-num">01</span></div>
-          <div class="ps-review yellow">Spec Review</div>
-        </div>
+      <!-- Row 1: labels -->
+      <div class="ps-label">
+        <div class="ps-num">01</div>
+        <div class="ps-name">Requirement Stage</div>
+        <div class="ps-sub">Idea Validation</div>
       </div>
-      <div class="pipeline-section">
-        <div class="ps-label">
-          <div class="ps-num">02</div>
-          <div class="ps-name">Design Stage</div>
-          <div class="ps-sub">Product Design</div>
-        </div>
-        <div class="ps-bar">
-          <div class="ps-block">UI DESIGN<span class="ps-block-num">02</span></div>
-          <div class="ps-review orange">Internal UX Review</div>
-          <div class="ps-review orange">Coherence Review</div>
-        </div>
+      <div class="ps-label">
+        <div class="ps-num">02</div>
+        <div class="ps-name">Design Stage</div>
+        <div class="ps-sub">Product Design</div>
       </div>
-      <div class="pipeline-section hl">
-        <div class="ps-label">
-          <div class="ps-num">03</div>
-          <div class="ps-name">Delivery Stage</div>
-          <div class="ps-sub">Product Implement</div>
-        </div>
-        <div class="ps-bar">
-          <div class="ps-block">PROTOTYPING / IMPLEMENT<span class="ps-block-num">03</span></div>
-          <div class="ps-review green">Bug Bash</div>
-        </div>
+      <div class="ps-label hl">
+        <div class="ps-num">03</div>
+        <div class="ps-name">Delivery Stage</div>
+        <div class="ps-sub">Product Implement</div>
       </div>
-      <div class="pipeline-section">
-        <div class="ps-label">
-          <div class="ps-num">04</div>
-          <div class="ps-name">Flight</div>
-          <div class="ps-sub">Ship</div>
-        </div>
-        <div class="ps-bar">
-          <div class="ps-block">SHIP<span class="ps-block-num">04</span></div>
-        </div>
+      <div class="ps-label">
+        <div class="ps-num">04</div>
+        <div class="ps-name">Flight</div>
+        <div class="ps-sub">Ship</div>
+      </div>
+      <!-- Row 2: pill bars -->
+      <div class="ps-bar">
+        <span class="ps-pill white">Idea Validation <span class="pill-num">01</span></span>
+        <span class="ps-pill yellow">Spec Review</span>
+      </div>
+      <div class="ps-bar">
+        <span class="ps-pill white">UI Design <span class="pill-num">02</span></span>
+        <span class="ps-pill orange">Internal UX Review</span>
+        <span class="ps-pill orange">Coherence Review</span>
+      </div>
+      <div class="ps-bar hl">
+        <span class="ps-pill white">Prototyping / Implement <span class="pill-num">03</span></span>
+        <span class="ps-pill green">Bug Bash</span>
+      </div>
+      <div class="ps-bar">
+        <span class="ps-pill white">Ship <span class="pill-num">04</span></span>
       </div>
     </div>
   </div>
