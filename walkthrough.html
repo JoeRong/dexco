@@ -99,6 +99,7 @@ p {
   align-items: flex-start;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 .slide-cover h1 {
   font-size: 96px;
@@ -109,19 +110,15 @@ p {
   color: var(--text-1);
   letter-spacing: -0.03em;
   position: relative;
-}
-.slide-cover .tagline {
-  font-size: 22px;
-  color: var(--text-3);
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  margin-top: 24px;
+  z-index: 1;
 }
 .slide-cover .team {
   margin-top: 48px;
   font-size: 16px;
   color: var(--text-3);
   letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
 }
 .slide-cover .team span {
   color: var(--text-2);
@@ -129,31 +126,31 @@ p {
 }
 .sticker {
   position: absolute;
-  padding: 8px 20px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
+  padding: 6px 18px;
+  background: #f5f378;
+  color: #1a1918;
+  font-size: 18px;
+  font-weight: 500;
   font-family: 'Space Grotesk', sans-serif;
-  border-radius: 6px;
+  font-style: italic;
+  border-radius: 20px;
   white-space: nowrap;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-  z-index: 10;
+  z-index: 2;
 }
 .sticker-1 {
-  top: 80px;
-  right: 160px;
-  transform: rotate(-6deg);
+  top: 28%;
+  left: 52%;
+  transform: rotate(-12deg);
 }
 .sticker-2 {
-  top: 240px;
-  right: 80px;
-  transform: rotate(4deg);
+  top: 46%;
+  left: 8%;
+  transform: rotate(-25deg);
 }
 .sticker-3 {
-  bottom: 200px;
-  right: 200px;
-  transform: rotate(-3deg);
+  top: 64%;
+  left: 48%;
+  transform: rotate(8deg);
 }
 
 /* ── S1: Pipeline ── */
