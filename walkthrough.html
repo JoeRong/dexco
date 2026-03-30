@@ -1386,73 +1386,73 @@ goTo(0);
 // ── Script Panel ──
 const scriptNotes = [
   /* 1 - Cover */
-  `大家好，今天想跟大家分享一些"古法设计"的事情，主题是 Rethinking the Design to Product Handoff。为什么叫古法设计呢？因为这件事我们团队几个人其实从半年前就开始做了——那时候 Figma Make 才刚上线，我们就借着 AI 快速发展的趋势，一直在探索一个问题：设计到产品之间的 handoff，有没有更好的方式？这半年下来，我们有产出，也踩了不少坑，但始终围绕着同一条线——Design to Product 的整个 workflow——在探索和迭代。先来看一下我们目前的工作流程。`,
+  `大家好，今天的主题是 Rethinking the Design-to-Product Handoff。我们团队内部管这个项目叫"古法设计"——因为半年前就开始做了，那时候 Figma Make 刚上线，AI 能力还很早期。但我们一直在问一个问题：设计师把稿子交出去之后，到它变成产品，中间那段路能不能更短？半年下来踩了不少坑，也做出了一些东西。今天把这条路上的发现跟大家聊聊。先看我们目前的工作流。`,
 
   /* 2 - Pipeline Overview */
-  `我们的工作流程分四步。第一步 Requirement，PM 写 Spec，我们做 Idea Validation 和 Spec Analyze。第二步 Design，做 Design Exploration 和 Review。第三步 Delivery，工程师拿设计去实现 demo，搭页面、接数据，整个团队都在等——等 demo 出来看跟设计有没有出入、有没有 edge case。Bug Bash 没问题了，第四步推 Flight 上线。<br><br><em style="color:var(--text-3);">→ 点击后：</em>最近我们团队前端大量减员，资源非常吃紧。之前这些来回——等 demo、改设计、再开发——还能磨，现在完全没时间磨了。Delivery 这个瓶颈变得尤为严重。那具体严重在哪呢？`,
+  `我们的流程分四步。Requirement——PM 写 Spec，我们做 Idea Validation 和 Spec Analyze。Design——设计探索加评审。Delivery——工程师拿设计稿去实现，搭页面、接数据，整个团队等着看 demo，确认跟设计有没有出入、有没有 edge case。Bug Bash 通过之后，第四步推 Flight 上线。<br><br><em style="color:var(--text-3);">→ 点击后：</em>最近团队前端大量减员，资源非常紧。以前这些来回——等 demo、改设计、再开发——还能磨，现在完全没时间磨了。Delivery 这个瓶颈变得格外突出。具体卡在哪？`,
 
   /* 3 - Three Pain Points */
-  `具体来说三个问题。Idle——设计做完了，等开发实现，可能等好几天。Drift——设计意图在翻译过程中丢失，来回沟通没完没了。Loop——开发做完才发现边界情况，改设计、重新开发、再测试，无限循环。那怎么解决呢？`,
+  `三个痛点。<b>Idle</b>——设计做完了，开发排不上，一等就是好几天。<b>Drift</b>——设计意图在翻译过程中走样，来回沟通没完没了。<b>Loop</b>——开发做完才发现边界情况没覆盖，改设计、重新开发、再测试，死循环。怎么破？`,
 
   /* 4 - The Shift */
-  `所以我们想：如果设计师能自己部署呢？用 Figma Make 生成代码，直接部署上线，跳过 handoff。当然，说起来简单，做起来有很多挑战。`,
+  `我们的想法很简单：如果设计师能自己把东西部署上去呢？用 Figma Make 生成代码，直接部署，跳过 handoff。听起来美好，做起来全是坑。`,
 
   /* 5 - Challenge 1 */
-  `第一个挑战是输出质量。Figma Make 生成的代码和设计稿不一定一致。我们的解决方法是写 design-guidelines.md 和 global.css，给 AI 足够的约束，每天迭代优化。解决了"像不像"的问题之后，还有一个更深层的问题。`,
+  `第一个坑：Figma Make 生成的代码跟设计稿长得不一样。我们的做法是写 design-guidelines.md 和 global.css，给 AI 明确的约束，每天迭代。<br><br><em style="color:var(--text-3);">→ 点击后：</em>这三样东西——guideline、CSS、持续迭代——后来变成了我们整个方法论的基础。"像不像"的问题解决了，但还有一个更深的问题。`,
 
   /* 6 - Challenge 2 */
-  `第二个挑战：光是看起来对不够，代码结构要能被前后端工程师直接用。这不是 demo，是要上线的。我们靠 prompt engineering 和反复调试来解决。然后还有一个大家最常问的问题。`,
+  `第二个坑：看起来对了不够，代码结构得让前后端工程师能直接用。这不是 demo，是要上线的东西。我们靠 prompt engineering 和反复调试，一点一点把结构打磨到位。然后还有一个大家最常问的问题。`,
 
   /* 7 - Challenge 3 */
-  `第三个挑战：这和 Figma 原型有什么区别？答案是数据分离——我们从生成的代码里抽出 data.ts，后端据此定义 data schema，对接真实 API。这不是原型，是有真实数据的产品。三个挑战都解决之后，我们做出了什么？`,
+  `第三个坑，也是大家最常问的：这跟 Figma 原型有什么区别？区别在 <b>data separation</b>——我们从生成的代码里抽出 data.ts，后端据此定义 data schema，对接真实 API。<br><br><em style="color:var(--text-3);">→ 点击后：</em>三个关键词——data.ts extraction、data schema、real API integration。这不是原型，是跑真实数据的产品。三个坑都填完了，我们做出了什么？`,
 
   /* 8 - Result: App Deployment */
-  `我们做了一个部署平台。从 Figma 设计到 Figma Make 生成代码，到一键部署，到 live build。设计师全程不用写代码。这是第一个主题的成果。现在我们回到流程图，看看还有没有其他机会。`,
+  `我们搭了一个部署平台叫 <b>App Depot</b>。流程很简单：Figma Design → Figma Make → Dexco Deploy → Live Build。设计师全程不碰代码。这是第一个成果。现在回到流程图，看看还有没有别的机会。`,
 
   /* 9 - Pipeline Reprise 2 */
-  `回到流程图。我们刚才解决了 Delivery 的瓶颈。<br><br><em style="color:var(--text-3);">→ 点击后：</em>现在看 Design Stage——这里有一个新的机会。`,
+  `回到流程图。我们刚才解决了 Delivery 的瓶颈。<br><br><em style="color:var(--text-3);">→ 点击后：</em>Four stages, one opportunity——现在看 Design 阶段，Design Exploration 这里有一个新机会。`,
 
   /* 10 - Design Exploration: Why */
-  `既然 Figma Make 靠 guideline 和 global.css 能稳定输出了，那我们就想：同样的约束机制，能不能反过来用在设计探索上？之前我们做设计探索，得一个一个试，效率很低。如果 AI 理解我们的设计规范，它是不是能帮我们批量生成符合规范的设计方案？要做到这一点，第一步是让 AI 真正理解我们的设计体系。`,
+  `Figma Make 靠 guideline 和 global.css 已经能稳定输出了。那同样的约束机制能不能反过来用？如果 AI 能忠实还原我们的设计，那它也许也能探索新的方向。第一步，是让 AI 真正理解我们的设计体系。`,
 
   /* 11 - Design Framework → Guideline */
-  `我们借助 News Team 的平台，把 News 所有的 Design Framework 做了一次系统梳理——布局规则、间距规范、组件行为、视觉层级。然后把这些 Framework 整理成一份结构化的 Design Guideline，让 AI 能读懂、能遵守。有了它之后，我们开始验证。`,
+  `我们把 News 所有的 Design Framework 做了一次系统梳理——布局规则、间距规范、组件行为、视觉层级。然后整理成一份结构化的 Design Guideline，让 AI 能读、能遵守。这份 guideline 是约束层——它告诉 AI <b>怎么</b>在我们的体系里做设计，而不只是做<b>什么</b>设计。有了这个基础，开始验证。`,
 
   /* 12 - Task 1: Reproduce */
-  `先验证基本能力：让 Figma Make 仅靠 guideline 还原一个 Magazine Layout。结果只用了 2 轮对话，几乎完美还原。基本能力验证通过，接下来做真正的探索。`,
+  `先验基本功：让 Figma Make 仅靠 guideline 还原一个 Magazine Layout。结果只用了 2 轮对话，几乎完美还原。基本功没问题，接下来做真正的探索。`,
 
   /* 13 - Task 2: Explore */
-  `基于设计规范生成全新的卡片样式。对比一下——之前没有 guideline 的时候，同样的任务需要 86 次对话、将近 10 个小时。有了 guideline 之后效率完全不同。这是第二个主题。我们再回到流程图看看。`,
+  `基于设计规范生成全新的卡片样式。做个对比——没有 guideline 的时候，同样的任务要 86 轮对话、将近 10 小时。有了 guideline，效率完全是另一个量级。这是第二个成果。再回到流程图。`,
 
   /* 14 - Pipeline Reprise 3 */
-  `Delivery 和 Design 都有了新的方式。<br><br><em style="color:var(--text-3);">→ 点击后：</em>现在看 Requirement Stage——这里还有一个想法。`,
+  `Delivery 和 Design 都有了新玩法。<br><br><em style="color:var(--text-3);">→ 点击后：</em>Four stages, one skill——现在看 Requirement 阶段，Spec Analyze 这里还有一个想法。`,
 
   /* 15 - Spec to Design Intro */
-  `如果 AI 能读懂 PM 的 Spec，并且自动生成 Implementation Plan 呢？不是简单的总结，而是真正理解需求，问对的问题，产出设计师可以直接执行的结构化方案。要做到这一点，我们做了两项前期投入。`,
+  `如果 AI 能读懂 PM 的 Spec，经过分析，直接生成 Implementation Plan 呢？不是简单地总结，而是真正理解需求、问对的问题，产出设计师可以直接执行的结构化方案。为了做到这一点，我们做了两项前期准备。`,
 
   /* 16 - Groundwork */
-  `第一，我们梳理了 SERP 的完整页面架构——Header、Top Wide、Primary、Algo、Rail，以及三种布局变体，给 AI 一套共同语言。第二，我们模拟了设计师收到 Spec 之后的思考过程——看什么、过滤什么、怎么把需求转化成设计决策。有了这些基础，我们构建了一个 Design Skill。`,
+  `两项关键投入。第一，<b>Page Architecture</b>——我们梳理了 SERP 的完整页面结构，Header、Top Wide、Primary、Algo、Rail，加上三种布局变体，给 AI 一套共同语言。第二，<b>Designer Thinking Process</b>——我们模拟了设计师拿到 Spec 之后的思考过程：看什么、过滤什么、怎么把需求转成设计决策。有了这些，我们做了一个 Design Skill。`,
 
   /* 17 - Design Skill Workflow */
-  `这个 Skill 分五步。Spec Analysis——AI 读 Spec，定位涉及哪些 SERP 区域。Layout Variants——选择预设的布局模式。Structured Q&A——确认结构、guideline、品牌主题。Open Q&A——探索交互细节、边界情况、范围。最后确认 deliverables。那最终产出是什么呢？`,
+  `这个 Skill 分五步。<b>Spec Analysis</b>——AI 读 Spec，定位涉及哪些 SERP 区域，如果有歧义就主动问。<b>Layout Variants</b>——从预设的布局模式里选择。<b>Structured Q&A</b>——确认结构、guideline、品牌主题。<b>Open Q&A</b>——探索交互细节、内容密度、边界情况、范围。<b>Deliverables</b>——确认保真度、探索数量、输出格式。最终产出是什么？`,
 
   /* 18 - Implementation Planning */
-  `最终产出：一份从 Spec 分析和多轮 Q&A 中生成的结构化 Implementation Plan，设计师可以直接拿来执行。来看看实际效果。`,
+  `一份从 Spec 分析和多轮 Q&A 中生成的结构化 Implementation Plan，设计师拿来就能执行。看看实际效果。`,
 
   /* 19 - Result Showcase */
-  `这是最终产出的样子——从一份 PM Spec 到一份可执行的 Implementation Plan，完全通过 Design Skill 生成。三个主题都讲完了，回头看看我们到底做了什么。`,
+  `这是最终的样子——从一份 PM Spec 到一份可执行的 Implementation Plan，完全由 Design Skill 生成。三个主题讲完了，我们拉回来看全局。`,
 
   /* 20 - Workflow Evolution */
-  `回顾一下，其实我们一直在做的事情，就是在整个 workflow 上面找设计机会，利用 AI 去增强每一个环节。过去我们是单线合作的——设计师只是 workflow 的其中一环，做完就交给下一个人。但今天看来，每一个岗位都可以做其他岗位上的事情。设计师可以部署，可以做设计探索，甚至可以把 PM 的 Spec 转化成 Implementation Plan。我们没有刻意去改变 workflow——我们只是不断找 AI 能帮忙的地方，workflow 自然就变了。这让我想到一个概念。`,
+  `回头看，其实我们一直在做同一件事：在整条 workflow 上找 AI 能帮忙的地方。Before 是 Linear Handoff——每个角色是链条上的一环，设计交给开发，开发交给 QA，所有人排队等。Now 是 Expanded Boundaries——每个角色都能触及相邻的环节。设计师能部署，Spec 能直接生成设计方案。流程不再是线性的，而是交叠的。<br><br>We didn't set out to change the workflow. We found design opportunities with AI — and the workflow changed around us. 这让我想到一个概念。`,
 
   /* 21 - Harness Engineering */
-  `这三个主题其实在做同一件事：Harness Engineering。四个层次——Constraint Layer：Design Guideline，告诉 AI 怎么思考设计。Tool Layer：CSS、Schema，把视觉语言编码成 AI 能消费的格式。Workflow Layer：Skill，把设计师的思考过程外化成可重复的 AI 工作流。Review Layer：人类检查点，AI 提方案，人来审批。这意味着我们的角色在变。`,
+  `三个主题其实在做同一件事：<b>Harness Engineering</b>。不是写更好的 prompt，而是设计 AI 的整个工作环境。四层结构——<b>Constraint Layer</b>：Design Guideline，不是文档，是一套告诉 AI 怎么在我们的设计体系里思考的指令。<b>Tool Layer</b>：Global CSS / Schema，把视觉语言编码成 AI 能消费的格式。<b>Workflow Layer</b>：Skill，把设计师的思考过程外化成可重复的流程。<b>Review Layer</b>：Coherence Review，人类检查点——AI 出方案，人来拍板，确保质量和意图。这意味着我们的角色在变。`,
 
   /* 22 - Role Shift */
-  `从 Executor 到 Harness Engineer。不再是一屏一屏画设计，而是设计 AI 遵循的规则。线性产出变成指数级产出。`,
+  `不再是一屏一屏画设计，而是设计 AI 遵循的规则。Drawing every screen → Designing the rules AI follows。线性产出变成指数级产出。`,
 
   /* 23 - Closing */
-  `问题不是"AI 能不能做设计"——而是"你怎么驾驭它"。谢谢大家。`
+  `The question is not "Can AI do design?" It's "How do you harness it?" 谢谢大家。`
 ];
 
 const scriptPanel = document.getElementById('scriptPanel');
