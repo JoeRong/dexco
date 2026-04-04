@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>尼泊尔 9天攻略 🏔️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAF8F5;
+  --surface: #fff;
+  --text-1: #1a1a1a;
+  --text-2: #555;
+  --text-3: #999;
+  --accent: #D4763C;
+  --accent-light: #FFF3EB;
+  --teal: #2A7D6E;
+  --teal-light: #E8F5F1;
+  --blue: #3B6B9E;
+  --blue-light: #EBF2F8;
+  --warm: #B8860B;
+  --warm-light: #FFF8E7;
+  --radius: 16px;
+}
+
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Sections ── */
+.section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  padding: 60px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Cover ── */
+.cover {
+  background: linear-gradient(165deg, #2c3e50 0%, #1a252f 100%);
+  color: #fff;
+  text-align: center;
+  padding-top: 80px;
+}
+.cover-emoji { font-size: 64px; margin-bottom: 16px; }
+.cover h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+.cover .subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.cover-tags {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.cover-tag {
+  background: rgba(255,255,255,0.12);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-6px); }
+}
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.overview-card .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.overview-card h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+.overview-card p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+/* ── Day Cards ── */
+.day-section { padding: 48px 24px 40px; }
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.day-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.day-meta h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 22px;
+  line-height: 1.3;
+}
+.day-meta .date {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+.day-body {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.day-keyword {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.poi-list { list-style: none; }
+.poi-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f0efec;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.poi-item:last-child { border-bottom: none; }
+.poi-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.poi-icon.temple { background: var(--warm-light); }
+.poi-icon.nature { background: var(--teal-light); }
+.poi-icon.hotel { background: var(--blue-light); }
+.poi-icon.food { background: #FFF0F0; }
+.poi-icon.activity { background: var(--accent-light); }
+.poi-text h4 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+.poi-text p { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+
+.day-tip {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--accent-light);
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--accent);
+  line-height: 1.6;
+}
+.day-tip::before { content: '💡 '; }
+
+/* ── Hotel Recommendation ── */
+.hotel-rec {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--blue-light);
+  border-radius: 12px;
+}
+.hotel-rec .hotel-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.hotel-rec p {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ── Trek Section ── */
+.trek-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.trek-option {
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.trek-option.recommended {
+  border: 2px solid var(--teal);
+  position: relative;
+}
+.trek-badge {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+.trek-option h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.trek-option .trek-detail {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.trek-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.trek-tags span {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--teal-light);
+  color: var(--teal);
+}
+
+/* ── Budget ── */
+.budget-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+.budget-item {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.budget-item .amount {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.budget-item .item-label {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+/* ── Tips ── */
+.tips-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tip-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.tip-card .tip-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.tip-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.tip-card p { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+/* ── Summary ── */
+.summary {
+  background: linear-gradient(165deg, #2A7D6E 0%, #1a5249 100%);
+  color: #fff;
+  text-align: center;
+}
+.summary h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.summary p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.8;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.summary-tags {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.summary-tags span {
+  background: rgba(255,255,255,0.15);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* ── Section titles ── */
+.section-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+/* ── Progress dots ── */
+.progress-bar {
+  position: fixed;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 100;
+}
+.progress-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--text-3);
+  opacity: 0.3;
+  transition: all 0.3s;
+}
+.progress-dot.active {
+  opacity: 1;
+  background: var(--accent);
+  height: 18px;
+}
+
+/* ── Animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- Progress dots -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- S0: Cover -->
+<div class="section cover">
+  <div class="cover-emoji">🏔️</div>
+  <h1>尼泊尔 9天<br>深度之旅</h1>
+  <p class="subtitle">加德满都 → 博卡拉 → Poon Hill<br>2026.04.30 – 05.09</p>
+  <div class="cover-tags">
+    <span class="cover-tag">🛕 人文</span>
+    <span class="cover-tag">🥾 轻徒步</span>
+    <span class="cover-tag">🏨 精品住宿</span>
+    <span class="cover-tag">🪂 滑翔伞</span>
+  </div>
+  <div class="scroll-hint">↑ 上滑开始 ↑</div>
+</div>
+
+<!-- S1: Overview -->
+<div class="section day-section">
+  <div class="section-label reveal">路线概览</div>
+  <div class="section-title reveal">三段旅程，三种体验</div>
+
+  <div class="overview-card reveal">
+    <div class="label">第一站 · Day 1-3</div>
+    <h3>🛕 加德满都</h3>
+    <p>寺庙、佛教、印度教。活着的古城。精神震撼的人文深度体验。</p>
+  </div>
+
+  <div class="overview-card reveal">
+    <div class="label">第二站 · Day 4-7</div>
+    <h3>🏔️ 博卡拉 + Poon Hill</h3>
+    <p>费瓦湖畔精品酒店 → 2天轻徒步看安娜普尔纳日出 → 滑翔伞收尾。</p>
+  </div>
+
+  <div class="overview-card reveal">
+    <div class="label">第三站 · Day 8-9</div>
+    <h3>🛍️ 返程</h3>
+    <p>休闲购物，买羊绒和手工艺品，带着回忆回家。</p>
+  </div>
+</div>
+
+<!-- DAY 1 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">1</div>
+    <div class="day-meta">
+      <h2>杭州 → 加德满都</h2>
+      <div class="date">4月30日 · 周三</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">落地适应</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon activity">✈️</div>
+        <div class="poi-text">
+          <h4>抵达加德满都</h4>
+          <p>入住精品酒店，建议住 Thamel 或帕坦区域</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon food">🍽️</div>
+        <div class="poi-text">
+          <h4>晚餐 + 适应</h4>
+          <p>轻松吃饭，调整时差，感受加都氛围</p>
+        </div>
+      </li>
+    </ul>
+    <div class="hotel-rec">
+      <div class="hotel-label">🏨 推荐住宿</div>
+      <p><strong>Dwarika's Hotel</strong> — 高端尼泊尔文化酒店<br>
+      <strong>The Soaltee</strong> — 舒适现代风格</p>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 2 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">2</div>
+    <div class="day-meta">
+      <h2>加德满都人文深度</h2>
+      <div class="date">5月1日 · 周四</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">佛教 + 印度教文化冲击</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon temple">🐒</div>
+        <div class="poi-text">
+          <h4>猴庙 Swayambhunath</h4>
+          <p>山顶佛塔，俯瞰加德满都谷地全景</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon temple">🛕</div>
+        <div class="poi-text">
+          <h4>博达哈大佛塔 Boudhanath</h4>
+          <p>世界最大圆佛塔之一，藏传佛教圣地</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon temple">🔥</div>
+        <div class="poi-text">
+          <h4>帕斯帕提那神庙</h4>
+          <p>印度教火葬场，震撼的生死仪式</p>
+        </div>
+      </li>
+    </ul>
+    <div class="day-tip">这一天会非常"精神震撼"，是尼泊尔的灵魂所在</div>
+  </div>
+</div>
+
+<!-- DAY 3 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">3</div>
+    <div class="day-meta">
+      <h2>帕坦 + 巴德岗</h2>
+      <div class="date">5月2日 · 周五</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">世界遗产 · 中世纪古城</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon temple">👑</div>
+        <div class="poi-text">
+          <h4>帕坦王宫广场</h4>
+          <p>比加德满都更精致的王宫建筑群</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon temple">🏛️</div>
+        <div class="poi-text">
+          <h4>巴德岗 Bhaktapur</h4>
+          <p>活着的中世纪古城，不是景区假古镇</p>
+        </div>
+      </li>
+    </ul>
+    <div class="day-tip">巴德岗的酸奶和陶器街不要错过</div>
+  </div>
+</div>
+
+<!-- DAY 4 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">4</div>
+    <div class="day-meta">
+      <h2>飞博卡拉</h2>
+      <div class="date">5月3日 · 周六</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">重点转场 · 湖畔时光</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon activity">✈️</div>
+        <div class="poi-text">
+          <h4>30分钟航班</h4>
+          <p>也可开车6小时，但强烈不推荐</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon nature">🌅</div>
+        <div class="poi-text">
+          <h4>费瓦湖畔散步</h4>
+          <p>看雪山倒影，享受安静的湖边黄昏</p>
+        </div>
+      </li>
+    </ul>
+    <div class="hotel-rec">
+      <div class="hotel-label">🏨 推荐住宿</div>
+      <p><strong>Temple Tree Resort</strong> — 性价比之选<br>
+      <strong>Fish Tail Lodge</strong> — 湖景无敌，需坐船入住</p>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 5 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">5</div>
+    <div class="day-meta">
+      <h2>轻徒步：出发</h2>
+      <div class="date">5月4日 · 周日</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">Poon Hill 线路 · Day 1</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon nature">🥾</div>
+        <div class="poi-text">
+          <h4>Nayapul → Tikhedhunga</h4>
+          <p>穿越村庄、梯田，4-5月杜鹃花盛放</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon hotel">🏡</div>
+        <div class="poi-text">
+          <h4>入住山间客栈</h4>
+          <p>Tea House 住宿，简朴但温暖</p>
+        </div>
+      </li>
+    </ul>
+    <div class="day-tip">难度适中，非专业也完全OK。向导必请。</div>
+  </div>
+</div>
+
+<!-- DAY 6 -->
+<div class="section day-section" style="background: linear-gradient(180deg, #FFF8F0 0%, var(--bg) 100%);">
+  <div class="day-header reveal">
+    <div class="day-num" style="background:var(--teal);">6</div>
+    <div class="day-meta">
+      <h2>🌄 登顶 Poon Hill</h2>
+      <div class="date">5月5日 · 周一 · 高光时刻</div>
+    </div>
+  </div>
+  <div class="day-body reveal" style="border: 2px solid var(--teal);">
+    <span class="day-keyword" style="background:var(--teal-light);color:var(--teal);">⭐ 整个旅程最值的一刻</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon nature">🌅</div>
+        <div class="poi-text">
+          <h4>凌晨登顶看日出</h4>
+          <p>喜马拉雅山脉全景，含安娜普尔纳群峰</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon nature">🏔️</div>
+        <div class="poi-text">
+          <h4>下午下撤</h4>
+          <p>到 Ghorepani 或继续走一段</p>
+        </div>
+      </li>
+    </ul>
+    <div class="day-tip" style="background:var(--teal-light);color:var(--teal);">带好保暖衣物，山顶凌晨非常冷。但看到日出的那一刻，一切都值了。</div>
+  </div>
+</div>
+
+<!-- DAY 7 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">7</div>
+    <div class="day-meta">
+      <h2>返回博卡拉</h2>
+      <div class="date">5月6日 · 周二</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">犒劳自己</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon hotel">🏨</div>
+        <div class="poi-text">
+          <h4>回到湖边酒店</h4>
+          <p>热水澡，真正的床，文明世界回归</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon activity">💆</div>
+        <div class="poi-text">
+          <h4>按摩 / 咖啡</h4>
+          <p>博卡拉满街都是 spa 和咖啡馆</p>
+        </div>
+      </li>
+    </ul>
+    <div class="day-tip">这一天的关键词就是"爽"</div>
+  </div>
+</div>
+
+<!-- DAY 8 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">8</div>
+    <div class="day-meta">
+      <h2>博卡拉休闲日</h2>
+      <div class="date">5月7日 · 周三</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">二选一</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon activity">🪂</div>
+        <div class="poi-text">
+          <h4>方案A：滑翔伞（推荐）</h4>
+          <p>世界级滑翔伞胜地 + 划船 + 湖边发呆</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon nature">🦏</div>
+        <div class="poi-text">
+          <h4>方案B：奇特旺国家公园</h4>
+          <p>看犀牛、鳄鱼、丛林 Safari</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- DAY 9-10 -->
+<div class="section day-section">
+  <div class="day-header reveal">
+    <div class="day-num">9</div>
+    <div class="day-meta">
+      <h2>返程回家</h2>
+      <div class="date">5月8-9日</div>
+    </div>
+  </div>
+  <div class="day-body reveal">
+    <span class="day-keyword">收尾</span>
+    <ul class="poi-list">
+      <li class="poi-item">
+        <div class="poi-icon activity">✈️</div>
+        <div class="poi-text">
+          <h4>飞回加德满都</h4>
+          <p>飞回或包车</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon food">🛍️</div>
+        <div class="poi-text">
+          <h4>买纪念品</h4>
+          <p>羊绒围巾、手工艺品、唐卡</p>
+        </div>
+      </li>
+      <li class="poi-item">
+        <div class="poi-icon activity">🏠</div>
+        <div class="poi-text">
+          <h4>5月9日回杭州</h4>
+          <p>带着故事回家</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Trek Comparison -->
+<div class="section day-section">
+  <div class="section-label reveal">徒步选择</div>
+  <div class="section-title reveal">哪条线路最适合？</div>
+
+  <div class="trek-compare">
+    <div class="trek-option recommended reveal">
+      <span class="trek-badge">✅ 推荐</span>
+      <h4>Poon Hill</h4>
+      <div class="trek-detail">2-3天 · 风景密度极高 · 不会高反 · 有舒适住宿</div>
+      <div class="trek-tags">
+        <span>有徒步感</span>
+        <span>不苦</span>
+        <span>有村落</span>
+        <span>杜鹃花季</span>
+      </div>
+    </div>
+    <div class="trek-option reveal">
+      <h4>⚠️ Annapurna Base Camp</h4>
+      <div class="trek-detail">5-7天 · 更震撼 · 但体力要求高 · 会累</div>
+    </div>
+    <div class="trek-option reveal">
+      <h4>❌ 珠峰大本营 EBC</h4>
+      <div class="trek-detail">时间不够 · 太累 · 不适合这次</div>
+    </div>
+  </div>
+</div>
+
+<!-- Budget -->
+<div class="section day-section">
+  <div class="section-label reveal">预算参考</div>
+  <div class="section-title reveal">人均 8K – 15K</div>
+
+  <div class="budget-grid reveal">
+    <div class="budget-item">
+      <div class="amount">¥3-5K</div>
+      <div class="item-label">往返机票</div>
+    </div>
+    <div class="budget-item">
+      <div class="amount">¥400-1K</div>
+      <div class="item-label">酒店 / 晚</div>
+    </div>
+    <div class="budget-item">
+      <div class="amount">¥1.5-3K</div>
+      <div class="item-label">徒步 + 向导</div>
+    </div>
+    <div class="budget-item">
+      <div class="amount">¥100-200</div>
+      <div class="item-label">吃喝 / 天</div>
+    </div>
+  </div>
+
+  <div class="day-tip reveal" style="margin-top:20px;">不穷游路线，住精品酒店 + 请向导的舒适版预算</div>
+</div>
+
+<!-- Tips -->
+<div class="section day-section">
+  <div class="section-label reveal">关键提醒</div>
+  <div class="section-title reveal">出发前必看</div>
+
+  <div class="tips-grid">
+    <div class="tip-card reveal">
+      <div class="tip-num">1</div>
+      <div>
+        <h4>一定要请向导</h4>
+        <p>尼泊尔很多路线现在要求向导，而且体验会好非常多</p>
+      </div>
+    </div>
+    <div class="tip-card reveal">
+      <div class="tip-num">2</div>
+      <div>
+        <h4>提前订住宿</h4>
+        <p>4-5月是旺季，尤其徒步段的 Tea House 要抢</p>
+      </div>
+    </div>
+    <div class="tip-card reveal">
+      <div class="tip-num">3</div>
+      <div>
+        <h4>防晒 + 轻羽绒</h4>
+        <p>白天暴晒，山里早晚很冷，温差极大</p>
+      </div>
+    </div>
+    <div class="tip-card reveal">
+      <div class="tip-num">4</div>
+      <div>
+        <h4>选"慢节奏"</h4>
+        <p>最舒服的比例：70% 舒服 + 30% 挑战</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Summary -->
+<div class="section summary">
+  <div class="reveal">
+    <div style="font-size:48px;margin-bottom:16px;">🙏</div>
+    <h2>文化冲击<br>喜马拉雅轻徒步<br>度假感</h2>
+    <p>这不是苦行登山。<br>这是一趟有深度、有风景、住得好的旅行。</p>
+    <div class="summary-tags">
+      <span>🛕 寺庙与信仰</span>
+      <span>🌄 雪山日出</span>
+      <span>🪂 滑翔伞</span>
+      <span>🏨 精品酒店</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => observer.observe(el));
+
+// Progress dots
+const sections = document.querySelectorAll('.section');
+const bar = document.getElementById('progressBar');
+sections.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'progress-dot';
+  bar.appendChild(dot);
+});
+const dots = bar.querySelectorAll('.progress-dot');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = Array.from(sections).indexOf(e.target);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+  });
+}, { threshold: 0.5 });
+sections.forEach(s => sectionObserver.observe(s));
+</script>
+
+</body>
+</html>
